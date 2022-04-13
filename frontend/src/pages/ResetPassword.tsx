@@ -9,6 +9,7 @@ import {
   MdOutlineAlternateEmail,
   MdOutlineMarkEmailRead
 } from "react-icons/md";
+
 const CMdOutlineAlternateEmail = chakra(MdOutlineAlternateEmail);
 const CMdOutlineMarkEmailRead = chakra(MdOutlineMarkEmailRead);
 
