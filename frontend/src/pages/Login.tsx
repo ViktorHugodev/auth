@@ -1,9 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import Head from "next/head";
-import { parseCookies } from "nookies";
 import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { withSSRGuest } from "../utils/withSSRGuest copy";
 import {
   Flex,
   Heading,
@@ -20,15 +16,16 @@ import {
   FormHelperText,
   InputRightElement,
   Text,
-
+  Icon,
+  Divider,
 } from "@chakra-ui/react";
-import {  FaLock,FaRegUserCircle, FaEye,FaEyeSlash } from "react-icons/fa";
-const CAiOutlineEye = chakra(FaEyeSlash);
-const CAiOutlineEyeInvisible = chakra(FaEye)
-const CFaRegUserCircle = chakra(FaRegUserCircle);
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { AuthContext } from "../contexts/AuthContext";
+
+const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-export default function Index(){
+const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,7 +63,7 @@ export default function Index(){
         justifyContent="center"
         alignItems="center"
       >
-         <Avatar bg="teal.500" size="xl" src={`/images/logo.jpg`} mb="1rem"/>
+        <Avatar bg="teal.500" />
 
         <Box minW='25rem'>
           <form onSubmit={handleSubmit}>
@@ -96,17 +93,15 @@ export default function Index(){
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<CFaRegUserCircle color="gray.600" />}
+                    children={<CFaUserAlt color="gray.500" />}
                   />
                   <Input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     focusBorderColor="red.500"
-                    variant="flushed"
-                    border="none"
                     type="email"
                     placeholder="Seu email"
-                    // borderColor="red.500"
+                    borderColor="gray.700"
                   />
                 </InputGroup>
               </FormControl>
@@ -115,23 +110,21 @@ export default function Index(){
                   <InputLeftElement
                     pointerEvents="none"
                     color="gray.500"
-                    children={<CFaLock color="gray.600" />}
+                    children={<CFaLock color="gray.500" />}
                   />
                   <Input
                    value={password}
                    onChange={(e) => setPassword(e.target.value)}
-                   focusBorderColor="red.500"
-                    variant="flushed"
-                    // focusBorderColor="red.500"
+                    variant={'outline'}
+                    focusBorderColor="red.500"
                     type={showPassword ? "text" : "password"}
                     placeholder="Sua senha"
-                    border="none"
+                    borderColor="gray.700"
                   />
                   <InputRightElement width="4.5rem">
-                    {password.length >= 1 && <Button h="1.75rem" size="sm" variant="none" color="gray.500" onClick={handleShowClick}>
-                      {showPassword ? <CAiOutlineEye color="gray.600"/> : <CAiOutlineEyeInvisible color="gray.600"/>}
-                    </Button>}
-                    
+                    <Button h="1.75rem" size="sm" variant="none" color="gray.500" onClick={handleShowClick}>
+                      {showPassword ? "Esconder" : "Mostrar"}
+                    </Button>
                   </InputRightElement>
                 </InputGroup>
                 <FormHelperText textAlign="right">
@@ -150,8 +143,8 @@ export default function Index(){
                 Entrar
               </Button>
               <Flex alignItems="center" justify="center">
-                <CFaLock color="gray.500" mr="2" fontSize=".75rem" />
-                <Text color="gray.500" fontSize=".75rem"textAlign="center">
+                <CFaLock color="gray.500" mr="4" />
+                <Text color="gray.500" fontSize="sm"textAlign="center">
                   Seus dados estão protegidos
                 </Text>
               </Flex>
@@ -163,13 +156,4 @@ export default function Index(){
   );
 };
 
-export const getServerSideProps = withSSRGuest(
-  //High order function, chama a função com o parametro de ssr
-  async (ctx) => {
-    return {
-      props: {
-
-      },
-    };
-  }
-);
+export default Login;
