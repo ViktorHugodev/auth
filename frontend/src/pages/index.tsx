@@ -1,6 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import Head from "next/head";
-import { parseCookies } from "nookies";
+
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { withSSRGuest } from "../utils/withSSRGuest copy";
@@ -49,11 +48,11 @@ export default function Index() {
 
   return (
     <Flex
-    p="2"
+      p="2"
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundImage={[`/images/bg-kratos2.jpg`,`/images/bg-kratos4.jpg`]}
+      backgroundImage={[`/images/bg-kratos2.jpg`, `/images/bg-kratos4.jpg`]}
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
       backgroundColor="gray.200"
@@ -68,14 +67,14 @@ export default function Index() {
       >
         {/* <Avatar bg="teal.500" size="xl" src={`/images/logo.jpg`} mb="1rem" /> */}
 
-          <Image
+        <Image
           boxShadow="sm"
           borderRadius="sm"
-            src={`/images/logo.jpg`}
-            height="100px"
-            width="100px"
-            alt="logo"
-          />
+          src={`/images/logo.jpg`}
+          height="100px"
+          width="100px"
+          alt="logo"
+        />
 
         <Box minW={{ base: "20rem", sm: "25rem" }}>
           <form onSubmit={handleSubmit}>
@@ -99,15 +98,15 @@ export default function Index() {
                   fontSize="xl"
                   color="white"
                   mt="1rem"
-                  fontWeight="nroaml"
+                  fontWeight="400"
                 >
                   BEM VINDO AO OLYMPIAKUS
                 </Heading>
                 <Box
-                  bgGradient="linear(to-r, rgba(255, 0, 0, 1), rgba(0, 0, 0, 0.2))"
+                  bgGradient="linear(to-r, red.main, gray.bgInput)"
                   h="4px"
                   pos="relative"
-                  borderColor="gray.200"
+                  // borderColor="gray.200"
                   width="full"
                 ></Box>
               </Flex>
@@ -116,21 +115,22 @@ export default function Index() {
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<CFaRegUserCircle color="gray.600" />}
+                    children={<CFaRegUserCircle color="gray" />}
                   />
                   <Input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     focusBorderColor="red.500"
-                    variant="outline"
-                    border="none"
-                    
-                    // bgColor="gray.800"
 
+                    variant="outline"
+                    _focus={{boxShadow: `0 0 0 2px red`}}
+                    border="none"
+                    bgColor='gray.bgInput'
+                    isRequired
                     type="email"
                     placeholder="Seu email"
                     color="gray.600"
-                    _placeholder={{ opacity: 0.8, color: "gray.600" }}
+                    _placeholder={{ opacity: 0.8, color: "gray" }}
                     // borderColor="red.500"
                   />
                 </InputGroup>
@@ -140,15 +140,17 @@ export default function Index() {
                   <InputLeftElement
                     pointerEvents="none"
                     color="gray.500"
-                    children={<CFaLock color="gray.600" />}
+                    children={<CFaLock color="gray" />}
                   />
                   <Input
+                  isRequired
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     focusBorderColor="red.500"
-                    variant="flushed"
-                    _placeholder={{ opacity: 0.8, color: "gray.600" }}
-                    color="gray.600"
+                    variant="outline"
+                    bgColor='gray.bgInput'
+                    _placeholder={{ opacity: 0.8, color: "gray" }}
+       
                     // focusBorderColor="red.500"
                     type={showPassword ? "text" : "password"}
                     placeholder="Sua senha"
@@ -182,7 +184,8 @@ export default function Index() {
                 variant="solid"
                 color="white"
                 colorScheme="red"
-                bgColor="#fe0000"
+                bgColor='red.main'
+                fontWeight="normal"
                 width="70%"
               >
                 Entrar
@@ -199,7 +202,7 @@ export default function Index() {
       </Stack>
     </Flex>
   );
-};
+}
 
 export const getServerSideProps = withSSRGuest(
   //High order function, chama a função com o parametro de ssr

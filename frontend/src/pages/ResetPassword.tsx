@@ -86,13 +86,15 @@ const ResetPassword = () => {
                     children={<CMdOutlineAlternateEmail color="gray.600" />}
                   />
                   <Input
+                  isRequired
                     focusBorderColor="red.500"
-                    variant="flushed"
+                    variant="outline"
                     border="none"
                     type="email"
                     placeholder="Seu email"
+                    bgColor='gray.bgInput'
                     color="gray.600"
-                    _placeholder={{ opacity: 1, color: 'gray.300' }}
+                    _placeholder={{ opacity: 0.8, color: 'gray.500' }}
                   />
                 </InputGroup>
               </FormControl>
@@ -104,11 +106,13 @@ const ResetPassword = () => {
                     children={<CMdOutlineMarkEmailRead color="gray.600" />}
                   />
                   <Input
+                  isRequired
                     focusBorderColor="red.500"
-                    variant="flushed"
-                    _placeholder={{ opacity: 0.8, color: 'gray.600' }}
+                    variant="outline"
+                    _placeholder={{ opacity: 0.8, color: 'gray.500' }}
                     border="none"
                     type="email"
+                    bgColor='gray.bgInput'
                     placeholder="Confirme seu email"
                     mb="6"
                     color="gray.600"
@@ -125,6 +129,7 @@ const ResetPassword = () => {
                 colorScheme="red"
                 bgColor="#fe0000"
                 width="70%"
+                fontWeight="normal"
               >
                 Recuperar
               </Button>
