@@ -74,14 +74,16 @@ export default function Index() {
           height="100px"
           width="100px"
           alt="logo"
+  
         />
 
         <Box minW={{ base: "20rem", sm: "25rem" }}>
           <form onSubmit={handleSubmit}>
             <Stack
+        
               borderRadius="xl"
               height="25rem"
-              spacing={4}
+              spacing={1}
               backgroundColor="#000000"
               boxShadow="md"
               alignItems="center"
@@ -95,10 +97,10 @@ export default function Index() {
               >
                 <Heading
                   textAlign="center"
-                  fontSize="xl"
+                  fontSize="md"
                   color="white"
                   mt="1rem"
-                  fontWeight="400"
+                  fontWeight="300"
                 >
                   BEM VINDO AO OLYMPIAKUS
                 </Heading>
@@ -112,7 +114,7 @@ export default function Index() {
               </Flex>
 
               <FormControl w="70%">
-                <InputGroup>
+                <InputGroup mt="9">
                   <InputLeftElement
                     pointerEvents="none"
                     children={<CFaRegUserCircle color="gray" />}
@@ -121,10 +123,11 @@ export default function Index() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     focusBorderColor="red.500"
-
+                    fontWeight="300"
                     variant="outline"
-                    _focus={{boxShadow: `0 0 0 2px red`}}
+                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
                     border="none"
+                    fontSize="sm"
                     bgColor='gray.bgInput'
                     isRequired
                     type="email"
@@ -146,12 +149,13 @@ export default function Index() {
                   isRequired
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
                     focusBorderColor="red.500"
                     variant="outline"
                     bgColor='gray.bgInput'
                     _placeholder={{ opacity: 0.8, color: "gray" }}
-       
-                    // focusBorderColor="red.500"
+                    fontSize="sm"
+                    fontWeight="300"
                     type={showPassword ? "text" : "password"}
                     placeholder="Sua senha"
                     border="none"
@@ -166,16 +170,16 @@ export default function Index() {
                         onClick={handleShowClick}
                       >
                         {showPassword ? (
-                          <CAiOutlineEye color="gray.600" />
+                          <CAiOutlineEye color="gray" />
                         ) : (
-                          <CAiOutlineEyeInvisible color="gray.600" />
+                          <CAiOutlineEyeInvisible color="gray" />
                         )}
                       </Button>
                     )}
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Link href="/ResetPassword">Esqueci minha senha</Link>
+                <FormHelperText textAlign="right" my="1">
+                  <Link href="/ResetPassword" fontSize="smaller">Esqueci minha senha</Link>
                 </FormHelperText>
               </FormControl>
               <Button
@@ -185,14 +189,16 @@ export default function Index() {
                 color="white"
                 colorScheme="red"
                 bgColor='red.main'
-                fontWeight="normal"
+                fontSize="sm"
+                fontWeight="600"
                 width="70%"
+     
               >
                 Entrar
               </Button>
-              <Flex alignItems="center" justify="center">
-                <CFaLock color="gray.500" mr="2" fontSize=".75rem" />
-                <Text color="gray.500" fontSize=".75rem" textAlign="center">
+              <Flex alignItems="center" justify="center" mt="1" >
+                <CFaLock color="gray.500" mr="1" fontSize="8px" />
+                <Text color="gray.500" fontSize="8px" textAlign="center">
                   Seus dados estão protegidos
                 </Text>
               </Flex>

@@ -1,23 +1,25 @@
 /* eslint-disable react/no-children-prop */
 import {
   Avatar, Box, Button, chakra, Flex, FormControl,
-  FormHelperText, Heading, Image,
+  FormHelperText, Heading, Image, Text,
   Input, InputGroup, InputLeftElement, Stack
 } from "@chakra-ui/react";
 import { useState } from "react";
+import {FaLock} from "react-icons/fa";
 import {
   MdOutlineAlternateEmail,
   MdOutlineMarkEmailRead
 } from "react-icons/md";
 const CMdOutlineAlternateEmail = chakra(MdOutlineAlternateEmail);
 const CMdOutlineMarkEmailRead = chakra(MdOutlineMarkEmailRead);
-
+const CFaLock = chakra(FaLock);
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const handleShowClick = () => setShowPassword(!showPassword);
   //Colocar um before acima do login
+
   return (
     <Flex
       flexDirection="column"
@@ -51,7 +53,7 @@ const ResetPassword = () => {
               position="relative"
               borderRadius="xl"
               height="25rem"
-              spacing={4}
+              spacing={1}
               backgroundColor="#000000"
               boxShadow="md"
               alignItems="center"
@@ -64,10 +66,10 @@ const ResetPassword = () => {
               >
                 <Heading
                   textAlign="center"
-                  fontSize="xl"
+                  fontSize="md"
                   color="white"
                   mt="1rem"
-                  fontWeight="normal"
+                  fontWeight="300"
                 >
                   REDEFINA SUA SENHA
                 </Heading>
@@ -80,21 +82,24 @@ const ResetPassword = () => {
               </Flex>
 
               <FormControl w="70%">
-                <InputGroup >
+                <InputGroup  mt="9">
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<CMdOutlineAlternateEmail color="gray.600" />}
+                    children={<CMdOutlineAlternateEmail color="gray" />}
                   />
                   <Input
                   isRequired
                     focusBorderColor="red.500"
+                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
                     variant="outline"
                     border="none"
                     type="email"
                     placeholder="Seu email"
                     bgColor='gray.bgInput'
                     color="gray.600"
-                    _placeholder={{ opacity: 0.8, color: 'gray.500' }}
+                    fontSize="sm"
+                    fontWeight="300"
+                    _placeholder={{ opacity: 0.8, color: 'gray' }}
                   />
                 </InputGroup>
               </FormControl>
@@ -103,18 +108,21 @@ const ResetPassword = () => {
                   <InputLeftElement
                     pointerEvents="none"
                     color="gray.500"
-                    children={<CMdOutlineMarkEmailRead color="gray.600" />}
+                    children={<CMdOutlineMarkEmailRead color="gray" />}
                   />
                   <Input
                   isRequired
                     focusBorderColor="red.500"
+                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
                     variant="outline"
-                    _placeholder={{ opacity: 0.8, color: 'gray.500' }}
+                    _placeholder={{ opacity: 0.8, color: 'gray' }}
                     border="none"
                     type="email"
+                    fontSize="sm"
+                    fontWeight="300"
                     bgColor='gray.bgInput'
                     placeholder="Confirme seu email"
-                    mb="6"
+                    mb="4"
                     color="gray.600"
                   />
                 </InputGroup>
@@ -129,10 +137,18 @@ const ResetPassword = () => {
                 colorScheme="red"
                 bgColor="#fe0000"
                 width="70%"
-                fontWeight="normal"
+                fontSize="sm"
+                fontWeight="600"
+              
               >
                 Recuperar
               </Button>
+              <Flex alignItems="center" justify="center" >
+                <CFaLock color="gray.500" mr="1" fontSize="8px" />
+                <Text color="gray.500" fontSize="8px" textAlign="center">
+                  Seus dados estão protegidos
+                </Text>
+              </Flex>
             </Stack>
           </form>
         </Box>

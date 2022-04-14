@@ -24,3 +24,13 @@ export const theme = extendTheme({
 		// },
 	},
 }) 
+
+
+
+// position: absolute;
+// top: 0;
+// left: 0;
+// width: 100%;
+// height: 100%;
+// background-color: rgba(0, 0, 0, 0.39);
+// background: linear-gradient( 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.20211834733893552) 40%, rgba(0, 0, 0, 0) 100% );
