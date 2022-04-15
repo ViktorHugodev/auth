@@ -25,7 +25,8 @@ const ResetPassword = () => {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundImage={[`/images/bg-kratos2.jpg`, `/images/bg-kratos4.jpg`]}
+      backgroundPosition="center"
+      backgroundImage={[`/images/bg-kratos4.jpg`, `/images/bg-kratos2.jpg`]}
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
       backgroundColor="gray.200"
@@ -51,7 +52,7 @@ const ResetPassword = () => {
           <form>
             <Stack
               position="relative"
-              borderRadius="xl"
+              borderRadius="3xl"
               height="25rem"
               spacing={1}
               backgroundColor="#000000"

@@ -52,8 +52,9 @@ export default function Index() {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundImage={[`/images/bg-kratos2.jpg`, `/images/bg-kratos4.jpg`]}
+      backgroundImage={[`/images/bg-kratos4.jpg`, `/images/bg-kratos2.jpg`]}
       backgroundSize="cover"
+      backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundColor="gray.200"
       justifyContent="center"
@@ -74,14 +75,12 @@ export default function Index() {
           height="100px"
           width="100px"
           alt="logo"
-  
         />
 
         <Box minW={{ base: "20rem", sm: "25rem" }}>
           <form onSubmit={handleSubmit}>
             <Stack
-        
-              borderRadius="xl"
+              borderRadius="3xl"
               height="25rem"
               spacing={1}
               backgroundColor="#000000"
@@ -125,10 +124,10 @@ export default function Index() {
                     focusBorderColor="red.500"
                     fontWeight="300"
                     variant="outline"
-                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
+                    _focus={{ boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)` }}
                     border="none"
                     fontSize="sm"
-                    bgColor='gray.bgInput'
+                    bgColor="gray.bgInput"
                     isRequired
                     type="email"
                     placeholder="Seu email"
@@ -146,13 +145,13 @@ export default function Index() {
                     children={<CFaLock color="gray" />}
                   />
                   <Input
-                  isRequired
+                    isRequired
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    _focus={{boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)`}}
+                    _focus={{ boxShadow: `0 0 0 2px rgba(255, 0, 0, .3)` }}
                     focusBorderColor="red.500"
                     variant="outline"
-                    bgColor='gray.bgInput'
+                    bgColor="gray.bgInput"
                     _placeholder={{ opacity: 0.8, color: "gray" }}
                     fontSize="sm"
                     fontWeight="300"
@@ -179,7 +178,9 @@ export default function Index() {
                   </InputRightElement>
                 </InputGroup>
                 <FormHelperText textAlign="right" my="1">
-                  <Link href="/ResetPassword" fontSize="smaller">Esqueci minha senha</Link>
+                  <Link href="/ResetPassword" fontSize="smaller">
+                    Esqueci minha senha
+                  </Link>
                 </FormHelperText>
               </FormControl>
               <Button
@@ -188,15 +189,14 @@ export default function Index() {
                 variant="solid"
                 color="white"
                 colorScheme="red"
-                bgColor='red.main'
+                bgColor="red.main"
                 fontSize="sm"
                 fontWeight="600"
                 width="70%"
-     
               >
                 Entrar
               </Button>
-              <Flex alignItems="center" justify="center" mt="1" >
+              <Flex alignItems="center" justify="center" mt="1">
                 <CFaLock color="gray.500" mr="1" fontSize="8px" />
                 <Text color="gray.500" fontSize="8px" textAlign="center">
                   Seus dados estão protegidos
@@ -206,6 +206,22 @@ export default function Index() {
           </form>
         </Box>
       </Stack>
+      <Button
+        color="red.main"
+        bgColor="transparent"
+        fontSize="sm"
+        borderColor={"red.main"}
+        top="5"
+        fontWeight="300"
+        right="6"
+        width="100px"
+        height="35px"
+        variant="outline"
+        position="absolute"
+        _hover={{ backgroundColor: "red.main", color: "white" }}
+      >
+        Comece já
+      </Button>
     </Flex>
   );
 }
