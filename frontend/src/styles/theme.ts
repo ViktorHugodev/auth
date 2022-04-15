@@ -16,12 +16,12 @@ export const theme = extendTheme({
     body: 'Proxima Nova, sans-serif'
   },
   styles: {
-		// global: {
-		// 	body: {
-		// 		bg: '#181818',
-		// 		color: 'gray.50',
-		// 	},
-		// },
+		global: {
+			body: {
+				bg: 'black',
+				color: 'gray.50',
+			},
+		},
 	},
 }) 
 

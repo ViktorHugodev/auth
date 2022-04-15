@@ -1,5 +1,6 @@
 import { Flex, Image, Link as ChakraLink, HStack } from "@chakra-ui/react";
 import Link from "next/link";
+import { FeatureMovies } from "../FeatureMovie/FeatureMovies";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SideBar } from "../Sidebar/Sidebar";
 
@@ -22,12 +23,14 @@ export function Header() {
   return (
     <Flex
 			px="8"
+      zIndex="5"
 			py="4"
       justifyContent="center"
       bgColor="transparent"
       flexDirection="column"
       w="100%"
-
+      top="0"
+    position="absolute" 
 		
     >
       <Flex justifyContent="flex-start" align="center">
@@ -85,10 +88,12 @@ export function Header() {
 				<Flex ml="auto" align="center">
 						<SearchBar/>
 						<SideBar/>
-
 				</Flex>
       </Flex>
-      <Flex></Flex>
+      <Flex>
+
+      </Flex>
     </Flex>
+   
   );
 }

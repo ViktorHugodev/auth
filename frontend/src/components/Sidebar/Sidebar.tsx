@@ -23,7 +23,7 @@ export function SideBar() {
 
       // ref={btnRef} 
       cursor="pointer" 
-      name="Victor Hugo" colorScheme='teal' boxShadow="md" size="60px"onClick={onOpen}>
+      name="Victor Hugo" fontSize="12px" colorScheme='teal' boxShadow="md" size="60px"onClick={onOpen}>
         
       </Avatar>
       <Drawer
