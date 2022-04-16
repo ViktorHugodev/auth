@@ -10,7 +10,9 @@ interface LayoutHomeProps {
 export function LayoutHome({children}: LayoutHomeProps){
 
   return (
-    <Box 
+    <Flex 
+    maxWidth={1440}
+    mx="auto"
     // zIndex="8"
     // h="100vh"
     // backgroundImage='/images/bg-home.jpg'
@@ -31,7 +33,7 @@ export function LayoutHome({children}: LayoutHomeProps){
         {/* <Carousel/> */}
     <Header/>
     {children}
-      </Box>
+      </Flex>
     
 //  </Box>
   )

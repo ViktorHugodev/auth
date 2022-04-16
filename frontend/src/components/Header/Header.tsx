@@ -4,7 +4,6 @@ import { FeatureMovies } from "../FeatureMovie/FeatureMovies";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SideBar } from "../Sidebar/Sidebar";
 
-
 export function Header() {
   const links = [
     {
@@ -22,18 +21,19 @@ export function Header() {
   ];
   return (
     <Flex
-			px="8"
+      maxWidth={1440}
+      mx="auto"
+      px="60px"
       zIndex="5"
-			py="4"
+      py="4"
       justifyContent="center"
       bgColor="transparent"
       flexDirection="column"
       w="100%"
       top="0"
-    position="absolute" 
-		
+      position="absolute"
     >
-      <Flex justifyContent="flex-start" align="center">
+      <Flex justifyContent="flex-start" align="center" >
         <Image
           boxShadow="sm"
           borderRadius="sm"
@@ -41,20 +41,19 @@ export function Header() {
           height="100px"
           width="100px"
           alt="logo"
-					mr="4"
+          mr="4"
         />
         <Flex h="45px" align="center">
           <HStack spacing={8} align="center" justify="center">
             {links.map((link: any, index: number) => {
               return (
-                <Link key={index} href={link.link} passHref >
+                <Link key={index} href={link.link} passHref>
                   <ChakraLink
-                  ml="4"
-										fontWeight="600"
+                    ml="4"
+                    fontWeight="600"
                     boxShadow="sm"
                     color="hsla(0, 0%, 100%, 0.8)"
                     position="relative"
-
                     _after={{
                       transition: `all 0.4s ease-in-out`,
                       content: `''`,
@@ -69,13 +68,12 @@ export function Header() {
                       // zIndex: -1,
                     }}
                     _hover={{
-											color:'red.main',
+                      color: "red.main",
                       _after: {
-												height: `2px`,
-												// outline: `1px solid red`,
+                        height: `2px`,
+                        // outline: `1px solid red`,
                         width: `40%`,
                       },
-                      
                     }}
                   >
                     {link.name}
@@ -85,15 +83,12 @@ export function Header() {
             })}
           </HStack>
         </Flex>
-				<Flex ml="auto" align="center">
-						<SearchBar/>
-						<SideBar/>
-				</Flex>
+        <Flex ml="auto" align="center">
+          <SearchBar />
+          <SideBar />
+        </Flex>
       </Flex>
-      <Flex>
-
-      </Flex>
+      <Flex></Flex>
     </Flex>
-   
   );
 }

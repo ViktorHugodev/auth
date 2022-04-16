@@ -12,8 +12,8 @@ export const theme = extendTheme({
     }
   },
   fonts: {
-    heading: 'Proxima Nova, sans-serif',
-    body: 'Proxima Nova, sans-serif'
+    heading: 'Proxima Nova, Poppins, sans-serif',
+    body: 'Proxima Nova, Poppins, sans-serif'
   },
   styles: {
 		global: {
