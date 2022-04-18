@@ -1,31 +1,56 @@
-
-import {extendTheme} from '@chakra-ui/react'
+import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   colors: {
-
-    red:{
-      main:'#ff0000'
+    red: {
+      main: "#ff0000",
+      600: "#ff0000",
     },
     gray: {
-      bgInput: '#060606'
+      bgInput: "#060606",
+      bgButton:         "#2D2D2D" 
+    },
+    bgSidebar: '#121212',
+    blue:{
+      100: '#46D0D0',
+      200: '#46D0D0',
+      300: '#46D0D0',
+      400: '#46D0D0',
+      500: '#46D0D0',
+      600: '#46D0D0',
+      700: '#46D0D0',
+      800: '#46D0D0',
+      900: '#46D0D0'
     }
   },
   fonts: {
-    heading: 'Proxima Nova, Poppins, sans-serif',
-    body: 'Proxima Nova, Poppins, sans-serif'
+    heading: "Proxima Nova, Poppins, sans-serif",
+    body: "Proxima Nova, Poppins, sans-serif",
+  },
+  components: {
+
+    Input: {
+      variants:{
+        outline: {
+          field:{
+            
+            _focus:{
+              boxShadow: "0 0 0 2px rgba(255,255,255,0.5)",
+            }
+          }
+        }
+      }
+    },
   },
   styles: {
-		global: {
-			body: {
-				bg: 'black',
-				color: 'gray.50',
-			},
-		},
-	},
-}) 
-
-
+    global: {
+      body: {
+        bg: "black",
+        color: "gray.50",
+      },
+    },
+  },
+});
 
 // position: absolute;
 // top: 0;
