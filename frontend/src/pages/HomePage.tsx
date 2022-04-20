@@ -1,4 +1,5 @@
 import {
+  AspectRatio,
   Box,
   Button,
   chakra,
@@ -450,10 +451,14 @@ export default function HomePage({ movies }: MoviesProps) {
                     <Flex
                       // minH="100px"
                       // w="100%"
-                      position="relative"
+                      maxH="450px"
                       py="12"
-                      px="8"
+                      px="10"
                       // h="100%"
+                      position="relative"
+                      justify="space-between"
+                      alignItems="center"
+                      // alignItems="center"
                       borderRadius="10px"
                       // transition="all .2s ease"
                       _groupHover={{
@@ -462,33 +467,26 @@ export default function HomePage({ movies }: MoviesProps) {
                       }}
                       transition="all 1s ease"
                     >
-                      <Flex>
-                        <Image
-                          py="2"
-                          alt="index"
-                          minW="25%"
-                          // px="2"
-                          // height="100%"
-                          opacity="0.8"
-                          zIndex="0"
-                          src={`/images/0${index + 1}.png`}
-
-                          // transform="translateX(8px)"
-                        />
-
-                        <Image
-                          transition="all .2s ease"
-                          // transform="scale(1)"
-                          zIndex={2}
-                          width="100%"
-                          // height="100%"
-                          boxShadow="dark-lg"
-                          borderRadius="10px"
-                          key={index}
-                          src={`https://image.tmdb.org/t/p/w400${movie.backdrop_path}`}
-                          alt="Name image"
-                        />
-                      </Flex>
+                      <Image
+                        alt="index"
+                        zIndex="0"
+                        opacity="0.8"
+                        // zIndex="0"
+                        w="40%"
+                        src={`/images/0${index + 1}.png`}
+                      />
+                      <Image
+                        transition="all .2s ease"
+                        position="relative"
+                        // transform="scale(1)"
+                        // zIndex={2}
+                        boxShadow="-16px 7px 8px 2px #000000"
+                        zIndex="2"
+                        borderRadius="10px"
+                        key={index}
+                        src={`https://image.tmdb.org/t/p/w400${movie.backdrop_path}`}
+                        alt="Name image"
+                      />
                     </Flex>
                   </a>
                 </Link>
