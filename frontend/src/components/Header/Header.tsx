@@ -21,9 +21,9 @@ export function Header() {
   ];
   return (
     <Flex
-      maxWidth={1440}
+  
       mx="auto"
-      px="60px"
+      px="10"
       zIndex="5"
       py="4"
       justifyContent="center"
@@ -37,9 +37,9 @@ export function Header() {
         <Image
           boxShadow="sm"
           borderRadius="sm"
-          src={`/images/logo.jpg`}
-          height="100px"
-          width="100px"
+          src={`/images/logo-q.png`}
+          maxH="80px"
+          maxW="150px"
           alt="logo"
           mr="4"
         />

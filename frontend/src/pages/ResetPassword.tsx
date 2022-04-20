@@ -23,7 +23,7 @@ const ResetPassword = () => {
   return (
     <Flex
       flexDirection="column"
-      width="100wh"
+      width="100vw"
       height="100vh"
       backgroundPosition="center"
       backgroundImage={[`/images/bg-kratos4.jpg`, `/images/bg-kratos2.jpg`]}

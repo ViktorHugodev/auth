@@ -11,12 +11,17 @@ import {
   RadioGroup,
   Stack,
   IconButton,
+  Fade,
+  ScaleFade,
+  Slide,
+  SlideFade,
   Button,
   useDisclosure,
   Input,
   InputLeftElement,
   chakra,
   Flex,
+  Box,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
@@ -26,27 +31,35 @@ const CFiSearch = chakra(FiSearch);
 
 const CGrClose = chakra(VscChromeClose);
 export function SearchBar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [placement, setPlacement] = useState("top");
+  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
 
   return (
     <>
       <IconButton
         variant="none"
         size="lg"
+        border="none"
         color="white"
         bg="transparent"
-        onClick={onOpen}
+        onClick={onToggle}
         aria-label="Search database"
-        icon={<HiOutlineSearch />}
+        icon={<HiOutlineSearch size="24px" />}
       />
+    
+      <Fade in={isOpen}>
+        <Box px="60px"
+          boxShadow="lg"
+          position="absolute"
+          left="0"
+          w="100%"
+          color="white"
+          mt="10"
 
-      <Drawer placement="top" size="lg" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent bgColor="transparent">
-          <DrawerHeader color="transparent">Basic Drawer</DrawerHeader>
-          <DrawerBody position="relative" bg="black" top="58">
-            <Flex align="center" justify="center">
+          bg="black"
+          py="12px"
+          shadow="md"
+        >
+        <Flex align="center" justify="center">
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
@@ -72,15 +85,14 @@ export function SearchBar() {
                 fontFamily="Poppins"
                 fontWeight="700"
                 variant="solid"
-                
                 colorScheme="blue"
                 minH="50px"
               >
                 Search
               </Button>
               <IconButton
-              onClick={onClose}
-              _hover={{filter: 'brightness(.8)'}}
+                onClick={onClose}
+                _hover={{ filter: "brightness(.8)" }}
                 ml="2"
                 minH="50px"
                 w="50px"
@@ -91,9 +103,10 @@ export function SearchBar() {
                 icon={<CGrClose color="white" fontSize="24px" />}
               />
             </Flex>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+        </Box>
+      </Fade>
+
+    
     </>
   );
 }

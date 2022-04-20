@@ -28,11 +28,11 @@ export function SideBar() {
         // ref={btnRef}
         cursor="pointer"
         name="Victor Hugo"
-        fontSize="20"
+        size="sm"
         colorScheme="teal"
-        boxShadow="md"
+        // boxShadow="md"
 
-        size="smaller"
+
         onClick={onOpen}
       />
       <Drawer
