@@ -10,7 +10,7 @@ interface LayoutHomeProps {
 }
 export function LayoutHome({ children }: LayoutHomeProps) {
   return (
-    <Box mx="auto">
+    <Box mx="auto" overflow="hidden">
       <Header />
       {children}
       <Footer/>
