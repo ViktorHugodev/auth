@@ -8,7 +8,21 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { CertificadoButton } from "../Certificado/CertificadoButton";
 export function FeatureMovies() {
+  const router = useRouter();
+  let isAulas = false;
+  let isHomePage = false;
+  if (router.pathname == "/curso/Aulas") {
+    isAulas = true;
+  }
+  if (router.pathname == "/HomePage") {
+    isHomePage = true;
+  }
+  console.log(router.pathname);
+  console.log(isAulas);
   return (
     <Box
       w="100vw"
@@ -47,22 +61,31 @@ export function FeatureMovies() {
           tortor euismod quis mauris. Vel maecenas malesuada quis dignissim
           viverra in penatibus.
         </Text>
-        <Button
-          position="relative"
-          top="53%"
-          letterSpacing="1px"
-          mt="4"
-          fontSize="16px"
-          _hover={{ color: "black" }}
-          minW="140"
-          fontFamily="Poppins"
-          fontWeight="700"
-          variant="solid"
-          colorScheme="blue"
-          minH="50px"
-        >
-          Something
-        </Button>
+        {isHomePage && (
+          <Button
+            position="relative"
+            top="53%"
+            letterSpacing="1px"
+            mt="4"
+            fontSize="16px"
+            _hover={{ color: "black" }}
+            minW="140"
+            fontFamily="Poppins"
+            fontWeight="700"
+            variant="solid"
+            colorScheme="blue"
+            minH="50px"
+          >
+            Something
+          </Button>
+        )}
+        {
+          isAulas &&
+          <Box position="relative" top="53%" w="80%">
+          <CertificadoButton />
+        </Box>
+        }
+        
         <Flex
           direction="column"
           px="3"

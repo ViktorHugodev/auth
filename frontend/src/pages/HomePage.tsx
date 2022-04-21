@@ -502,7 +502,6 @@ export default function HomePage({ movies }: MoviesProps) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await apiMovies.get("");
 
-  console.log(data);
 
   return {
     props: {
