@@ -113,18 +113,18 @@ export default function HomePage({ movies }: MoviesProps) {
                 slidesPerGroup: 1,
               },
               1024: {
-                slidesPerView: 4.2,
+                slidesPerView: 6.2,
                 spaceBetween: 10,
                 slidesPerGroup: 1,
               },
               // when window width is >= 1280px
               1280: {
-                slidesPerView: 4.2,
+                slidesPerView: 6.2,
                 spaceBetween: 10,
                 slidesPerGroup: 1,
               },
               1680: {
-                slidesPerView: 5.2,
+                slidesPerView: 6.2,
                 spaceBetween: 10,
                 slidesPerGroup: 1,
               },

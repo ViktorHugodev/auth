@@ -79,36 +79,30 @@ export function FeatureMovies() {
             Something
           </Button>
         )}
-        {
-          isAulas &&
+        {isAulas && (
           <Box position="relative" top="53%" w="80%">
-          <CertificadoButton />
-        </Box>
-        }
-        
+            <CertificadoButton />
+          </Box>
+        )}
+
         <Flex
           direction="column"
-          px="3"
+          fontSize="md"
+          fontFamily="Poppins"
+          fontWeight="700"
           align="flex-end"
-          fontFamily={"Poppins"}
           position="relative"
           top="33%"
+          mr="5"
         >
           <Avatar
-            cursor="pointer"
+    
             name="Victor Hugo"
             size="sm"
             boxShadow="md"
           />
-          <Heading
-            mt="2"
-            fontSize="16px"
-            fontFamily={"Poppins"}
-            fontWeight="700"
-          >
-            Victor Hugo
-          </Heading>
-          <Link mt="2" fontSize="12px" href="#">
+          <Text mt="2">Victor Hugo</Text>
+          <Link fontSize="12px" fontWeight="300" href="#">
             mais detalhes
           </Link>
         </Flex>
