@@ -1,5 +1,5 @@
 import { Button, Flex, Progress, chakra, Icon, Box, Text } from "@chakra-ui/react";
-import Teacher from "../../../public/images/teacher.svg";
+import { Teacher } from "../../styles/components/Icon";
 
 const CircleIcon = (props) => (
   <Icon viewBox="0 0 200 200" {...props}>
@@ -16,11 +16,17 @@ const CircleIcon = (props) => (
 export function CertificadoButton() {
   return (
     <Flex >
-      <Flex direction="column" w="80%">,
+      <Flex direction="column" w="70%">,
       <Flex align="center" justify="space-between" >
 
-        <Button colorScheme="blue" variant="outline" fontSize="sm"
-        leftIcon={<CircleIcon />} w="40%">
+        <Button
+        _focus={{
+          borderWidth: 'none'
+        }}
+        _hover={{
+          bg:'blue.500',
+        }} variant="outline" fontSize="sm"
+        leftIcon={<Teacher />} w="200px">
           Baixar Certificado
         </Button> 
         <Text>100% concluido</Text>

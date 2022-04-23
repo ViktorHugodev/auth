@@ -7,6 +7,10 @@ import {
   Stack,
   Text,
   IconButton,
+  Avatar,
+  Divider,
+  Icon,
+  Textarea,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
@@ -18,12 +22,12 @@ import {
   AddList,
   Dislike,
   Like,
+  Messages,
 } from "../../styles/components/Icon";
 export default function Modulos() {
   return (
     <LayoutHome>
       <Flex justify="space-between" m="10" mt="20" h="60vh">
-
         <AspectRatio minW="480px" w="60%" boxShadow="lg">
           <iframe
             title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
@@ -32,8 +36,7 @@ export default function Modulos() {
           ></iframe>
         </AspectRatio>
         <Flex
-
-         borderRadius="md"
+          borderRadius="md"
           direction="column"
           bg="rgba(255, 255, 255, 0.05)"
           p="6"
@@ -101,26 +104,7 @@ export default function Modulos() {
               <Text>Título da aula aqui, blablabla</Text>
             </Flex>
           </Flex>
-          <Flex direction="row"  my="2">
-            <AspectRatio minW="144px">
-              <iframe
-                title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-                src={`https://www.youtube.com/embed/iNCJfI48cKQ`}
-                allowFullScreen
-              ></iframe>
-            </AspectRatio>
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>Título da aula aqui, blablabla</Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row"  my="2">
+          <Flex direction="row" my="2">
             <AspectRatio minW="144px">
               <iframe
                 title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
@@ -158,7 +142,26 @@ export default function Modulos() {
               <Text>Título da aula aqui, blablabla</Text>
             </Flex>
           </Flex>
-          <Flex direction="row" >
+          <Flex direction="row" my="2">
+            <AspectRatio minW="144px">
+              <iframe
+                title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+                src={`https://www.youtube.com/embed/iNCJfI48cKQ`}
+                allowFullScreen
+              ></iframe>
+            </AspectRatio>
+            <Flex
+              direction="column"
+              p="2"
+              fontSize="smaller"
+              fontFamily="Poppins"
+              justify="center"
+            >
+              <Text>Aula 03</Text>
+              <Text>Título da aula aqui, blablabla</Text>
+            </Flex>
+          </Flex>
+          <Flex direction="row">
             <AspectRatio minW="144px">
               <iframe
                 title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
@@ -221,6 +224,74 @@ export default function Modulos() {
               variant="outline"
             />
           </Stack>
+        </Flex>
+        <Flex
+          align="center"
+          fontSize="md"
+          fontFamily="Poppins"
+          fontWeight="700"
+          mt="6"
+        >
+          <Avatar name="Victor Hugo" size="md" boxShadow="md" />
+          <Flex justify="flex-start" direction="column" ml="4">
+            <Text mt="2">Victor Hugo</Text>
+            <Link fontSize="12px" href="#" fontWeight="400">
+              mais detalhes
+            </Link>
+          </Flex>
+        </Flex>
+        <Divider mt="6" opacity="0.2" />
+
+        <Flex fontFamily="Poppins">
+          <Flex p="4">
+            <Messages mr="2" />
+            <Text>Comentários</Text>
+          </Flex>
+        </Flex>
+        <Flex>
+          <Avatar name="Victor Hugo" size="md" boxShadow="md" />
+          <Textarea
+            ml="4"
+            w="60%"
+            placeholder="Escreva seu comentário"
+            borderRadius="lg"
+          />
+        </Flex>
+        <Flex fontFamily="Poppins" mt="4">
+          <Avatar name="Victor Hugo" size="md" boxShadow="md" />
+          <Flex direction='column'p="4">
+            <Text fontSize="lg" fontWeight="600">Desire autor</Text>
+            <Text fontSize="smaller" fontWeight="400">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+              velit praesentium facere autem dolorem, officia eveniet odit ea
+              necessitatibus, repellat quia explicabo nemo nihil! At eveniet
+              consequuntur dolorum dolorem perspiciatis!
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex fontFamily="Poppins" mt="4">
+          <Avatar name="Victor Hugo" size="md" boxShadow="md" />
+          <Flex direction='column'p="4">
+            <Text fontSize="lg" fontWeight="600">Desire autor</Text>
+            <Text fontSize="smaller" fontWeight="400">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+              velit praesentium facere autem dolorem, officia eveniet odit ea
+              necessitatibus, repellat quia explicabo nemo nihil! At eveniet
+              consequuntur dolorum dolorem perspiciatis!
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex fontFamily="Poppins" mt="4">
+          <Avatar name="Victor Hugo" size="md" boxShadow="md" />
+          <Flex direction='column'p="4">
+            <Text fontSize="lg" fontWeight="600">Desire autor</Text>
+            <Text fontSize="smaller" fontWeight="400">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+              velit praesentium facere autem dolorem, officia eveniet odit ea
+              necessitatibus, repellat quia explicabo nemo nihil! At eveniet
+              consequuntur dolorum dolorem perspiciatis!
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
     </LayoutHome>
