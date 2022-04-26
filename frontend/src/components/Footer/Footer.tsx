@@ -1,23 +1,14 @@
 import {
   Box,
   chakra,
-  Container,
-  Link,
+  Container, Heading, Link,
   SimpleGrid,
   Stack,
-  Text,
-  VisuallyHidden,
-  Input,
-  IconButton,
-  useColorModeValue,
-  Heading,
-  Flex,
-  Grid,
+  Text, useColorModeValue, VisuallyHidden
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { FaInstagram, FaTwitter, FaDiscord, FaLinkedin } from "react-icons/fa";
-import { BiMailSend } from "react-icons/bi";
 import { BsDiscord } from "react-icons/bs";
+import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const SocialButton = ({
   children,
