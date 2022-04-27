@@ -1,5 +1,6 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Select, Text } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { useState } from "react";
 import { VideoCard } from "../../components/CardAula/VideoCard";
 import { VideoInformation } from "../../components/CardAula/VideoInformation";
 import { FeatureMovies } from "../../components/FeatureMovie/FeatureMovies";
@@ -26,19 +27,37 @@ export interface DataProps {
 }
 
 export default function Aulas2({ videos }: DataProps) {
-  console.log("videos", videos);
+  
+  const [moreLikes, setMoreLikes ] = useState('')
+  console.log(moreLikes)
+  if(moreLikes === 'maisCurtidos'){
+    const moreLike = videos.sort((a,b) => a.likes > b.likes ? 1 : -1);
+  }
   return (
     <LayoutHome>
       <FeatureMovies />
       <Flex w="100%" h="100%" direction="column">
-        <Heading px="10" fontWeight="400" fontFamily="Poppins" fontSize="2xl">Playlist</Heading>
+        <Flex justify="space-between">
+          <Heading px="10" fontWeight="400" fontFamily="Poppins" fontSize="2xl">
+            Videos
+          </Heading>
+          <Flex  align="center" border="1px" borderRadius="md" px="6" mr="12" opacity="0.8">
+          <Text   fontFamily="Poppins" whiteSpace={'nowrap'} fontSize="16px">Ordenar por:</Text>
+          <Select   border="none"opacity={0.6} onChange={(e)=> setMoreLikes(e.target.value)}>
+            
+            <option value='Mais asssistos'>Mais assistidos</option>
+            <option value='maisCurtidos'>Mais curtidos</option>
+            <option value="option3">Option 3</option>
+          </Select>
+          </Flex>
+        </Flex>
         {videos.map((video, index) => {
           return (
             <Flex key={index} align="center" p="10">
-              <Flex minW="360px"  >
+              <Flex minW="360px">
                 <VideoCard video={video} index={index} />
               </Flex>
-              <Flex >
+              <Flex>
                 <VideoInformation video={video} />
               </Flex>
             </Flex>

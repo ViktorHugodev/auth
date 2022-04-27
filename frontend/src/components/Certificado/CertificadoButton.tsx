@@ -16,7 +16,7 @@ const CircleIcon = (props) => (
 export function CertificadoButton() {
   return (
     <Flex >
-      <Flex direction="column" w="70%">,
+      <Flex direction="column" w="70%" mt="2">
       <Flex align="center" justify="space-between" >
 
         <Button

@@ -9,13 +9,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { CertificadoButton } from "../Certificado/CertificadoButton";
 export function FeatureMovies() {
   const router = useRouter();
   let isAulas = false;
   let isHomePage = false;
-  if (router.pathname == "/curso/Aulas") {
+  if (router.pathname == "/curso/Aulas" ) {
     isAulas = true;
   }
   if (router.pathname == "/HomePage") {

@@ -38,6 +38,7 @@ export default function Modulos() {
         m="10"
         mt="20"
         h="60vh"
+        
         sx={{
           p: {
             display: "-webkit-box",
@@ -46,6 +47,7 @@ export default function Modulos() {
             textOverflow: "ellipsis",
             overflow: "hidden",
           },
+          
         }}
       >
         <Box w="100%" height="100%" mr="6" borderRadius="lg" overflow="hidden">
@@ -58,6 +60,7 @@ export default function Modulos() {
           </AspectRatio>
         </Box>
         <Flex
+        
           borderRadius="md"
           direction="column"
           bg="rgba(255, 255, 255, 0.05)"
@@ -66,7 +69,7 @@ export default function Modulos() {
           h="100%"
           w="40%"
         >
-          <Flex direction="column" fontSize="sm" fontFamily="Poppins">
+          <Flex direction="column" fontSize="sm" fontFamily="Poppins" mb="4">
             <Text>Nome do curso</Text>
             <Text fontSize="smaller">Desirae Boator - 11 vídeos</Text>
           </Flex>
@@ -117,6 +120,58 @@ export default function Modulos() {
               <Text>Aula 03</Text>
               <Text>
                 {" "}
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Aliquid velit praesentium facere autem dolorem, officia eveniet
+                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
+                eveniet consequuntur dolorum dolorem perspiciatis!
+              </Text>
+            </Flex>
+          </Flex>
+          <Flex direction="row" align="center" my="4">
+            <Image
+              borderRadius="md"
+              minW="144px"
+              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+              src="https://i.ytimg.com/vi/ge31HzWk5T8/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgT3FBozo9DTA7ut3yLub7eq3E5g"
+              alt="thumb"
+              objectFit="contain"
+            />
+
+            <Flex
+              direction="column"
+              p="2"
+              fontSize="smaller"
+              fontFamily="Poppins"
+              justify="center"
+            >
+              <Text>Aula 03</Text>
+              <Text>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Aliquid velit praesentium facere autem dolorem, officia eveniet
+                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
+                eveniet consequuntur dolorum dolorem perspiciatis!
+              </Text>
+            </Flex>
+          </Flex>
+          <Flex direction="row" align="center" my="4">
+            <Image
+              borderRadius="md"
+              minW="144px"
+              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+              src="https://i.ytimg.com/vi/ge31HzWk5T8/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgT3FBozo9DTA7ut3yLub7eq3E5g"
+              alt="thumb"
+              objectFit="contain"
+            />
+
+            <Flex
+              direction="column"
+              p="2"
+              fontSize="smaller"
+              fontFamily="Poppins"
+              justify="center"
+            >
+              <Text>Aula 03</Text>
+              <Text>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                 Aliquid velit praesentium facere autem dolorem, officia eveniet
                 odit ea necessitatibus, repellat quia explicabo nemo nihil! At
@@ -249,17 +304,22 @@ export default function Modulos() {
             <Text>Comentários</Text>
           </Flex>
         </Flex>
-        <Flex >
+        <Flex w="100%" >
           <Avatar name="Victor Hugo" size="md" boxShadow="md" />
           <Textarea
-        
-            border="0"
+            // border="0"
+            opacity="0.4"
             size="sm"
+           minH={50}
             ml="4"
             placeholder="Escreva seu comentário"
             borderRadius="lg"
           />
-          <IconButton icon={<RiSendPlaneLine/>}  aria-label="send coment" bg="blue.500" _hover={{bg: 'transparent'}}/>
+          <Flex align="center" ml="2">
+
+        
+          <IconButton icon={<RiSendPlaneLine />}aria-label="send coment" bg="blue.500" _hover={{bg: 'transparent'}}/>
+          </Flex>
         </Flex>
         <Flex fontFamily="Poppins" mt="4" align="center">
           <Avatar name="Victor Hugo" size="md" boxShadow="md" />

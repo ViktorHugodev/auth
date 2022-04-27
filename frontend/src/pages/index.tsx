@@ -52,7 +52,7 @@ export default function Index() {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundImage={[`/images/bg-kratos4.jpg`, `/images/bg-kratos2.jpg`]}
+      backgroundImage={[`/images/bg-kratos4.jpg`, `/images/bg-kratos4.jpg`]}
       backgroundSize="cover"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"

@@ -1,39 +1,27 @@
 import {
-  AspectRatio,
-  Box,
-  Button,
-  chakra,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Image,
+  Box, Flex,
+  Heading, Image,
   Progress,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { GetServerSideProps, GetStaticProps } from "next";
-import { CardCourse } from "../components/GridCourse/CardCourse";
-import { LayoutHome } from "../components/LayoutHome/LayoutHome";
-import { apiMovies } from "../services/apiMovies";
-import { FeatureMovies } from "../components/FeatureMovie/FeatureMovies";
-import SwiperCore, {
-  Navigation,
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+import {
+  A11y, EffectCoverflow, EffectFade, Navigation,
   Pagination,
-  Scrollbar,
-  A11y,
-  EffectFade,
-  EffectCoverflow,
+  Scrollbar
 } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import IconPlay from "../../public/images/play.svg";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/a11y";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-// Import Swiper styles
-import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FeatureMovies } from "../components/FeatureMovie/FeatureMovies";
+import { LayoutHome } from "../components/LayoutHome/LayoutHome";
+import { apiMovies } from "../services/apiMovies";
 
-import "swiper/css/a11y";
-import Link from "next/link";
 interface DataProps {
   vote_average: any;
   id: number;
@@ -47,14 +35,12 @@ interface MoviesProps {
   movies: DataProps[];
 }
 export default function HomePage({ movies }: MoviesProps) {
-  console.log(movies);
 
   const sort = [...movies];
 
   const moviesSort = sort
     .sort((a, b) => (a.vote_average > b.vote_average ? -1 : 1))
     .slice(0, 10);
-  console.log("sort", sort);
   return (
     <LayoutHome>
       <FeatureMovies />

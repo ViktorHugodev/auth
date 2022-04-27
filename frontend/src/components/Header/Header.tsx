@@ -24,7 +24,7 @@ export function Header() {
   
       mx="auto"
       px="10"
-      zIndex="5"
+      zIndex="3"
       py="4"
       justifyContent="center"
       bgColor="transparent"

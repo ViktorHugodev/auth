@@ -5,12 +5,15 @@ export const theme = extendTheme({
     red: {
       main: "#ff0000",
       600: "#ff0000",
+      dash:'#BA0707',
     },
     gray: {
       bgInput: "#060606",
-      bgButton:         "#2D2D2D" 
+      bgButton:"#2D2D2D",
+      dash:'#2E2E2E'
     },
     bgSidebar: '#121212',
+
     blue:{
       100: '#46D0D0',
       200: '#46D0D0',
@@ -28,14 +31,31 @@ export const theme = extendTheme({
     body: "Proxima Nova, Poppins, sans-serif",
   },
   components: {
-
+    Switch: {
+      baseStyle: {
+        track: {
+          _focus: {
+            boxShadow: 'none'
+          }
+        }
+      }
+    },
+    Button:{
+      baseStyle:{
+        _focus: {
+   
+          boxShadow:0
+        }
+      }
+    },
     Input: {
       variants:{
         outline: {
           field:{
             
             _focus:{
-              boxShadow: "0 0 0 2px rgba(255,255,255,0.5)",
+              opacity: 0.4
+             
             }
           }
         }

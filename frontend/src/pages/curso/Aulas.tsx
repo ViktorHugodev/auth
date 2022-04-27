@@ -26,7 +26,6 @@ export interface DataProps {
 }
 
 export default function Aulas({ videos }: DataProps) {
-  console.log("videos", videos);
   return (
     <LayoutHome>
       <FeatureMovies />
