@@ -7,15 +7,20 @@ import {
   VStack,
   chakra,
   FormLabel,
-
   Input,
   Box,
+  Select,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { ModalChangePassword } from "../Modals/ModalChangePassword";
 
 export function DadosPessoais() {
   const [cpf, setCpf] = useState("");
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+  const [genero, setGenero] = useState("");
+  const [celular, setCelular] = useState('');
+  const [email, setEmail] = useState("");
 
   function formatCPF(cpf) {
     if (cpf.length === 11) {
@@ -23,9 +28,22 @@ export function DadosPessoais() {
     }
     return cpf;
   }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    const dadosPessoas = {
+      cpf,
+      nome,
+      sobrenome,
+      genero,
+      celular,
+      email,
+    };
+  }
+  console.log(genero)
   return (
     <Flex direction="column" minW="100%" py="6">
-      <Flex  align="center">
+      <Flex align="center">
         <Avatar name="Victor Hugo" size="2xl" />
         <Flex ml="4" direction="column">
           <Text>Foto de perfil</Text>
@@ -46,12 +64,14 @@ export function DadosPessoais() {
           </Button>
         </Flex>
       </Flex>
-      <chakra.form>
-        <HStack align="flex-start" fontSize="smaller" >
+      <chakra.form onSubmit={handleSubmit}>
+        <HStack align="flex-start" fontSize="smaller">
           <VStack w="50%" align="flex-start" spacing={4} justify="center">
-            <Box w="100%" >
+            <Box w="100%">
               <FormLabel mt="4">Nome</FormLabel>
               <Input
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
                 type="text"
                 border="none"
                 focusBorderColor="blue.500"
@@ -66,7 +86,6 @@ export function DadosPessoais() {
               <Input
                 placeholder="Ex. 12345678910 just numbers."
                 border="none"
-                // pattern="[0-9]{11}"
                 type="text"
                 value={formatCPF(cpf)}
                 onChange={(e) => setCpf(e.target.value)}
@@ -79,6 +98,8 @@ export function DadosPessoais() {
             <Box w="100%">
               <FormLabel m="0">Celular</FormLabel>
               <Input
+                value={celular}
+                onChange={(e) => setCelular(e.target.value)}
                 border="none"
                 type="number"
                 focusBorderColor="blue.500"
@@ -93,6 +114,8 @@ export function DadosPessoais() {
             <Box w="100%">
               <FormLabel mt="4">Sobrenome</FormLabel>
               <Input
+                value={sobrenome}
+                onChange={(e) => setSobrenome(e.target.value)}
                 type="text"
                 border="none"
                 focusBorderColor="blue.500"
@@ -104,19 +127,26 @@ export function DadosPessoais() {
             </Box>
             <Box w="100%">
               <FormLabel m="0">Gênero</FormLabel>
-              <Input
-                type="text"
-                border="none"
-                focusBorderColor="blue.500"
-                variant="outline"
+              <Select
+                isRequired
+                bg="black"
+                placeholder="Selecione o gênero"
                 bgColor="gray.dash"
-                placeholder="Nome completo"
-                w="100%"
-              />
+                border="none"
+                colorScheme="black"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+              >
+                <option  value="masculino">Masculino</option>
+                <option value="femino">Feminino</option>
+                <option value="outro">Outro</option>
+              </Select>
             </Box>
             <Box w="100%">
               <FormLabel m="0">E-mail</FormLabel>
               <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 border="none"
                 focusBorderColor="blue.500"
@@ -128,11 +158,11 @@ export function DadosPessoais() {
             </Box>
           </VStack>
         </HStack>
-        <Flex  direction="column" mt="8">
+        <Flex direction="column" mt="8">
           <Text mb="2">Senha</Text>
 
-          <ModalChangePassword/>
-        </Flex> 
+          <ModalChangePassword />
+        </Flex>
       </chakra.form>
     </Flex>
   );

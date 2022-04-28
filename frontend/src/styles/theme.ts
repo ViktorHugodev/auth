@@ -53,6 +53,11 @@ export const theme = extendTheme({
         outline: {
           field: {
             // border: "2px solid",
+            _placeholder:{
+              color: "white",
+              fontSize: ".8rem",
+              opacity: 0.5,
+            },
             _focus: {
          
               opacity: 0.4,

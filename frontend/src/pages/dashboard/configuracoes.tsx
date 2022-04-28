@@ -15,15 +15,10 @@ import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
 export default function Configuracoes() {
   return (
     <LayoutHome>
-      <Flex
-        position="relative"
-        align="center"
-        top="calc(80px)"
- 
-        w="100%"
-        p="10"
-      >
+      <Flex position="relative" align="center" top="calc(80px)" w="100%" px="5" py="5">
         <Tabs
+          // variant="enclosed"
+
           defaultIndex={0}
           borderBottomColor="transparent"
           h="100%"
@@ -31,16 +26,36 @@ export default function Configuracoes() {
           zIndex="5"
         >
           <TabList>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
+            <Tab
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+              sx={{ padding: "0px", marginLeft: "20px", marginRight: "20px" }}
+            >
               Dados pessoais
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
+            <Tab
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+              sx={{ padding: "0px", marginLeft: "20px", marginRight: "20px" }}
+            >
               Endereço
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
+            <Tab
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+              sx={{ padding: "0px", marginLeft: "20px", marginRight: "20px" }}
+            >
               Assinatura
             </Tab>
-            <Tab py={4} m={0} _focus={{ boxShadow: "none" }}>
+            <Tab
+              py={4}
+              m={0}
+              _focus={{ boxShadow: "none" }}
+              sx={{ padding: "0px", marginLeft: "20px", marginRight: "20px" }}
+            >
               Meus chamados
             </Tab>
 
@@ -50,13 +65,13 @@ export default function Configuracoes() {
           </TabList>
           <TabPanels>
             <TabPanel>
-             <DadosPessoais/>
+              <DadosPessoais />
             </TabPanel>
             <TabPanel>
-            <Enderecos/>
+              <Enderecos />
             </TabPanel>
             <TabPanel>
-            <Assinaturas/>
+              <Assinaturas />
             </TabPanel>
           </TabPanels>
         </Tabs>

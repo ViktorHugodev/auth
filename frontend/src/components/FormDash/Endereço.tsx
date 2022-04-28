@@ -41,18 +41,17 @@ export function Enderecos() {
     console.log(addressInformation);
   }
 
-  function formatCep(cep){
-    return cep.replace(/\D/g, '');
- 
+  function formatCep(cep) {
+    return cep.replace(/\D/g, "");
   }
   return (
-    <chakra.form onSubmit={handleSubmit}>
+    <chakra.form onSubmit={handleSubmit} _placeholder={{ opacity: 0.2, color: "white" }}>
       <HStack align="flex-start" fontSize="smaller">
-        <VStack w="50%" align="flex-start" spacing={4} justify="center">
-          <Box w="100%">
+        <VStack w="50%" align="flex-start" spacing={4} justify="center" >
+          <Box w="100%" _placeholder={{ opacity: 0.2, color: "white" }}>
             <FormLabel mt="4">Nome do endereço</FormLabel>
             <Input
-            isRequired
+              isRequired
               type="text"
               border="none"
               focusBorderColor="blue.500"
@@ -70,7 +69,7 @@ export function Enderecos() {
               isRequired
               placeholder="Ex. 39400000 just numbers."
               border="none"
-              pattern="[0-9]{8}"
+              pattern=""
               value={formatCep(cep)}
               onChange={(e) => setCep(e.target.value)}
               type="text"
@@ -175,7 +174,6 @@ export function Enderecos() {
             <FormLabel m="0">País</FormLabel>
             <Input
               isRequired
-
               value={pais}
               onChange={(e) => setPais(e.target.value)}
               type="text"
