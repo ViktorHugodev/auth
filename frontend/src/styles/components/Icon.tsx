@@ -150,3 +150,42 @@ export const Messages = createIcon({
     </>
   ),
 });
+export const MasterCard = createIcon({
+  displayName: "MasterCard",
+  viewBox: "0 0 32 32",
+  // path can also be an array of elements, if you have multiple paths, lines, shapes, etc.
+  path: (
+    <>
+      <svg
+        width="32"
+        height="33"
+        viewBox="0 0 32 33"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M30 5.12305H2C0.895431 5.12305 0 6.01848 0 7.12305V26.4182C0 27.5228 0.895431 28.4182 2 28.4182H30C31.1046 28.4182 32 27.5228 32 26.4182V7.12305C32 6.01848 31.1046 5.12305 30 5.12305Z"
+          fill="#3F3F4E"
+        />
+        <ellipse
+          cx="11.6364"
+          cy="16.7719"
+          rx="7.27273"
+          ry="7.27975"
+          fill="#EB001A"
+        />
+        <ellipse
+          cx="20.3637"
+          cy="16.7719"
+          rx="7.27273"
+          ry="7.27975"
+          fill="#F79E1C"
+        />
+        <path
+          d="M16 22.5959C17.7665 21.2678 18.9091 19.1533 18.9091 16.7716C18.9091 14.3899 17.7665 12.2754 16 10.9473C14.2336 12.2754 13.0909 14.3899 13.0909 16.7716C13.0909 19.1533 14.2336 21.2678 16 22.5959Z"
+          fill="#FF5F00"
+        />
+      </svg>
+    </>
+  ),
+});

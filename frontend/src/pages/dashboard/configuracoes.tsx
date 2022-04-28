@@ -7,7 +7,9 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { Assinaturas } from "../../components/FormDash/Assinaturas";
 import { DadosPessoais } from "../../components/FormDash/DadosPessoais";
+import { Enderecos } from "../../components/FormDash/Endereço";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
 
 export default function Configuracoes() {
@@ -17,12 +19,12 @@ export default function Configuracoes() {
         position="relative"
         align="center"
         top="calc(80px)"
-        height="600px"
+ 
         w="100%"
         p="10"
       >
         <Tabs
-          defaultIndex={1}
+          defaultIndex={0}
           borderBottomColor="transparent"
           h="100%"
           w="100%"
@@ -51,10 +53,10 @@ export default function Configuracoes() {
              <DadosPessoais/>
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+            <Enderecos/>
             </TabPanel>
             <TabPanel>
-              <p>three!</p>
+            <Assinaturas/>
             </TabPanel>
           </TabPanels>
         </Tabs>
