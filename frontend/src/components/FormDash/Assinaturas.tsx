@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { MasterCard } from "../../styles/components/Icon";
+import { PerfilDashboard } from "../Perfil/PerfilDashboard";
 
 export function Assinaturas() {
   const data = [
@@ -27,15 +28,19 @@ export function Assinaturas() {
 
   return (
     <Flex w="100%" direction="column">
-      <Flex w="100%" align="center" justify="flex-start" my="4">
-        <Avatar name="Victor Hugo" size="2xl" />
+      <Flex w="100%" align="center" justify="flex-start" >
+       <PerfilDashboard/>
 
-        <Flex ml="4" direction="column">
-          <Text fontSize="lg">Gabriel de araújo franco</Text>
-          <Text fontSize="smaller">deverasart@gmail.com</Text>
-        </Flex>
-
-        <Flex direction="column" ml="auto">
+     
+      </Flex>
+      <Flex my="6">
+      <Box >
+        <Heading fontWeight="400">Status</Heading>
+        <Text fontSize="smaller" color="green">
+          Assinatura ativa
+        </Text>
+      </Box>
+      <Flex direction="column" ml="auto">
           <Button color="white" borderColor="red" variant="outline">
             Solicitar reembolso
           </Button>
@@ -44,14 +49,8 @@ export function Assinaturas() {
           </Button>
         </Flex>
       </Flex>
-      <Box my="4">
-        <Heading fontWeight="400">Status</Heading>
-        <Text fontSize="smaller" color="green">
-          Assinatura ativa
-        </Text>
-      </Box>
 
-      <Flex justify="space-between" my="4">
+      <Flex justify="space-between" my="6">
         <Flex align="center" w="50%" justify="space-between" direction="column">
           <Flex justify="space-between" w="100%">
             <Text>Forma de pagamento</Text>
@@ -85,7 +84,7 @@ export function Assinaturas() {
       </Flex>
 
       <Flex
-        my="4"
+        my="6"
         w="full"
         bg="gray.600"
         alignItems="center"
@@ -200,14 +199,22 @@ export function Assinaturas() {
                     {token.email}
                   </Td>
                   <Td textAlign={{ md: "end", sm: "start" }}>
-                    {" "}
-                    Mastercard *77
+          
+                 <Text>Mastercard **** **** **** 1234</Text>
+
+   
                   </Td>
                 </Tr>
               );
             })}
           </Tbody>
-          <Tfoot></Tfoot>
+          <Tfoot>
+            <Tr>
+              <Th></Th>
+              <Th></Th>
+              <Th></Th>
+            </Tr>
+          </Tfoot>
         </Table>
       </Flex>
     </Flex>

@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 import { ModalChangePassword } from "../Modals/ModalChangePassword";
+import { PerfilDashboard } from "../Perfil/PerfilDashboard";
 
 export function DadosPessoais() {
   const [cpf, setCpf] = useState("");
@@ -42,33 +43,13 @@ export function DadosPessoais() {
   }
   console.log(genero)
   return (
-    <Flex direction="column" minW="100%" py="6">
-      <Flex align="center">
-        <Avatar name="Victor Hugo" size="2xl" />
-        <Flex ml="4" direction="column">
-          <Text>Foto de perfil</Text>
-          <Button
-            mt="4"
-            fontSize="smaller"
-            size="lg"
-            // mt="2"
-            height="40px"
-            w="235px"
-            variant="ghost"
-            _hover={{
-              bg: "red.dash",
-            }}
-            bg={"gray.dash"}
-          >
-            Atualizar foto do perfil
-          </Button>
-        </Flex>
-      </Flex>
+    <Flex direction="column" minW="100%" >
+     <PerfilDashboard/>
       <chakra.form onSubmit={handleSubmit}>
-        <HStack align="flex-start" fontSize="smaller">
+        <HStack align="flex-start" fontSize="smaller" my="6">
           <VStack w="50%" align="flex-start" spacing={4} justify="center">
             <Box w="100%">
-              <FormLabel mt="4">Nome</FormLabel>
+              <FormLabel >Nome</FormLabel>
               <Input
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
@@ -77,8 +58,9 @@ export function DadosPessoais() {
                 focusBorderColor="blue.500"
                 variant="outline"
                 bgColor="gray.dash"
-                placeholder="Primeiro nome"
+                placeholder="Primeiro nome" 
                 w="100%"
+             
               />
             </Box>
             <Box w="100%">
@@ -112,7 +94,7 @@ export function DadosPessoais() {
           </VStack>
           <VStack w="50%" align="flex-start" spacing={4}>
             <Box w="100%">
-              <FormLabel mt="4">Sobrenome</FormLabel>
+              <FormLabel >Sobrenome</FormLabel>
               <Input
                 value={sobrenome}
                 onChange={(e) => setSobrenome(e.target.value)}

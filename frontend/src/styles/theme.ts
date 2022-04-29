@@ -39,6 +39,24 @@ export const theme = extendTheme({
           },
         },
       },
+
+    },
+    Table: {
+
+      variants: {
+        simple: {
+          th:{
+            color: 'white',
+            opacity: 0.8,
+            borderColor:'rgba(255, 255, 255, .1)'
+          },
+          td:{
+            borderBottom: '1px',
+            opacity: 0.8,
+            borderColor:'rgba(255, 255, 255, .1)'
+          }
+        }
+      }
     },
     Button: {
       baseStyle: {

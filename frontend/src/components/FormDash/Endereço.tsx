@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
 import { ModalChangePassword } from "../Modals/ModalChangePassword";
+import { PerfilDashboard } from "../Perfil/PerfilDashboard";
 
 export function Enderecos() {
   const [endereco, setEndereco] = useState("");
@@ -45,7 +46,10 @@ export function Enderecos() {
     return cep.replace(/\D/g, "");
   }
   return (
-    <chakra.form onSubmit={handleSubmit} _placeholder={{ opacity: 0.2, color: "white" }}>
+    <Flex direction="column" >
+      <PerfilDashboard/>
+
+    <chakra.form onSubmit={handleSubmit} _placeholder={{ opacity: 0.2, color: "white" }} my="6">
       <HStack align="flex-start" fontSize="smaller">
         <VStack w="50%" align="flex-start" spacing={4} justify="center" >
           <Box w="100%" _placeholder={{ opacity: 0.2, color: "white" }}>
@@ -205,5 +209,6 @@ export function Enderecos() {
         </Button>
       </Flex>
     </chakra.form>
+    </Flex>
   );
 }

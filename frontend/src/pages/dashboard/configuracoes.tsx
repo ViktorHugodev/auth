@@ -10,15 +10,21 @@ import {
 import { Assinaturas } from "../../components/FormDash/Assinaturas";
 import { DadosPessoais } from "../../components/FormDash/DadosPessoais";
 import { Enderecos } from "../../components/FormDash/Endereço";
+import { MeusChamados } from "../../components/FormDash/MeusChamados";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
 
 export default function Configuracoes() {
   return (
     <LayoutHome>
-      <Flex position="relative" align="center" top="calc(80px)" w="100%" px="5" py="5">
+      <Flex
+        position="relative"
+        align="center"
+        top="calc(80px)"
+        w="100%"
+        px="5"
+        py="5"
+      >
         <Tabs
-          // variant="enclosed"
-
           defaultIndex={0}
           borderBottomColor="transparent"
           h="100%"
@@ -73,6 +79,10 @@ export default function Configuracoes() {
             <TabPanel>
               <Assinaturas />
             </TabPanel>
+            <TabPanel>
+              <MeusChamados/>
+            </TabPanel>
+
           </TabPanels>
         </Tabs>
       </Flex>
