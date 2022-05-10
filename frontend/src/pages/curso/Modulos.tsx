@@ -15,9 +15,12 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
-import { useState } from "react";
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+
+import { useEffect, useRef, useState } from "react";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
-import { ModalAuthor } from "../../components/ModalAuthor/ModalAuthor";
+// import { ModalAuthor } from "../../components/ModalAuthor/ModalAuthor";
 import { getVideosFromDb } from "../../services/firebase/getVideosFromDb";
 import {
   IconNext,
@@ -28,9 +31,97 @@ import {
   Like,
   Messages,
 } from "../../styles/components/Icon";
-import {RiSendPlaneLine} from 'react-icons/ri'
-export default function Modulos() {
-  const [resize, setResize] = useState("horizontal");
+import { RiSendPlaneLine } from "react-icons/ri";
+import VideoJS from "../../components/VideoJs/VideoJs";
+import { withSSRGuest } from "../../utils/withSSRGuest copy";
+import { apiTest } from "../../services/apiMovies";
+
+interface AulasProps {
+  url_video: string;
+  title: string;
+  id: string;
+  subtitle: string;
+  description: string;
+  url_thumb: string;
+  host: string;
+  slug: string;
+}
+interface AulaDataProps {
+  aulas: AulasProps;
+}
+
+export default function Modulos({ aulas }: AulaDataProps) {
+  const video = "1Yarv1dFoOU";
+  const [isVimeo, setIsVimeo] = useState(false);
+  const [isYouTube, setIsYouTube] = useState(false);
+  const [isVideoJs, setIsVideoJs] = useState(false);
+  const [classList, setClassList] = useState([]);
+  const [currentClassIndex, setCurrentClassIndex] = useState(3);
+  function playList(aulas: AulasProps[], index: number) {
+    setClassList(aulas);
+    setCurrentClassIndex(index);
+  }
+  console.log(aulas);
+
+  const playerRef = useRef(null);
+
+  useEffect(() => {}, []);
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+
+    fluid: true,
+    sources: [
+      {
+        src: aulas[currentClassIndex].url_video,
+        type: "video/mp4",
+      },
+    ],
+  };
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on("waiting", () => {
+      player.log("player is waiting");
+    });
+
+    player.on("dispose", () => {
+      player.log("player will dispose");
+    });
+  };
+  function RenderVideo() {
+    if (aulas[currentClassIndex].host === "videojs") {
+      return (
+        <Flex           h="60vh">
+          <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+        </Flex>
+      );
+    } else if (aulas[currentClassIndex].host === "youtube") {
+      return (
+        <iframe
+          title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+          src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}`}
+          width="100%"
+          height="100%"
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (aulas[currentClassIndex].host === "vimeo") {
+      return (
+        <iframe
+          title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+          src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}`}
+          width="100%"
+          height="100%"
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (aulas[currentClassIndex].host === "text") {
+      return <Text>{aulas[currentClassIndex].slug}</Text>;
+    }
+  }
   return (
     <LayoutHome>
       <Flex
@@ -38,7 +129,6 @@ export default function Modulos() {
         m="10"
         mt="20"
         h="60vh"
-        
         sx={{
           p: {
             display: "-webkit-box",
@@ -47,20 +137,45 @@ export default function Modulos() {
             textOverflow: "ellipsis",
             overflow: "hidden",
           },
-          
         }}
       >
-        <Box w="100%" height="100%" mr="6" borderRadius="lg" overflow="hidden">
-          <AspectRatio w="100%" h="100%" boxShadow="lg" borderRadius="md">
-            <iframe
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src={`https://www.youtube.com/embed/iNCJfI48cKQ`}
-              allowFullScreen
-            ></iframe>
-          </AspectRatio>
-        </Box>
         <Flex
-        
+          w="100%"
+          height="100%"
+          mr="6"
+          borderRadius="lg"
+          overflow="hidden"
+          align="center"
+          // justify="center"
+          bg="black"
+        >
+          <AspectRatio
+            ratio={16 / 9}
+            bg="black"
+            w="100%"
+   
+            height="100%"
+            // w={{
+            //   sm: "426px",
+            //   md: "640px",
+            //   lg: "854px",
+            //   xl: "1280px",
+            // }}
+            // maxH={{
+            //   sm: "360px",
+            //   md: "480px",
+            //   lg: "720px",
+            //   xl: "720px",
+            // }}
+            boxShadow="lg"
+            borderRadius="md"
+          >
+            {/* <Box w="100%" height="100%"> */}
+            <RenderVideo />
+            {/* </Box> */}
+          </AspectRatio>
+        </Flex>
+        <Flex
           borderRadius="md"
           direction="column"
           bg="rgba(255, 255, 255, 0.05)"
@@ -73,144 +188,13 @@ export default function Modulos() {
             <Text>Nome do curso</Text>
             <Text fontSize="smaller">Desirae Boator - 11 vídeos</Text>
           </Flex>
+
           <Flex direction="row" my="4">
             <Image
               minW="144px"
               title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
               borderRadius="md"
               src="https://i.ytimg.com/vi/MLDH_t3Rpms/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkugLsgmGvBNCbbHX4aBg77cQ38w"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                {" "}
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row">
-            <Image
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src="https://i.ytimg.com/vi/9VGLELoY6fs/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDBZvOW7IzchpR2NMhb6XzcujmOhg"
-              borderRadius="md"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                {" "}
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row" align="center" my="4">
-            <Image
-              borderRadius="md"
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src="https://i.ytimg.com/vi/ge31HzWk5T8/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgT3FBozo9DTA7ut3yLub7eq3E5g"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row" align="center" my="4">
-            <Image
-              borderRadius="md"
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src="https://i.ytimg.com/vi/ge31HzWk5T8/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgT3FBozo9DTA7ut3yLub7eq3E5g"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row" align="center" my="4">
-            <Image
-              borderRadius="md"
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src="https://i.ytimg.com/vi/ge31HzWk5T8/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBgT3FBozo9DTA7ut3yLub7eq3E5g"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex direction="row">
-            <Image
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              src="https://i.ytimg.com/vi/8nXqcugV2Y4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDznXZGjL03YqamNKFCRDAzYbJrOw"
-              borderRadius="md"
               alt="thumb"
               objectFit="contain"
             />
@@ -239,13 +223,13 @@ export default function Modulos() {
           <Text fontSize="smaller" color="green">
             Mais curtidos
           </Text>
-          <Text my="2">Como adicionar e gerenciar um aluno manualmente</Text>{" "}
-          <Text fontSize="smaller" fontWeight="400">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-            velit praesentium facere autem dolorem, officia eveniet odit ea
-            necessitatibus, repellat quia explicabo nemo nihil! At eveniet
-            consequuntur dolorum dolorem perspiciatis!
-          </Text>
+          <Text my="2">{aulas[currentClassIndex].title}</Text>{" "}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: aulas[currentClassIndex].description,
+            }}
+          />
+          {/* {aulas[currentClassIndex].description} */}
         </Flex>
         <Flex justify="space-between" mt="4">
           <Stack direction="row" spacing={4} opacity="0.6">
@@ -293,7 +277,7 @@ export default function Modulos() {
           <Avatar name="Victor Hugo" size="md" boxShadow="md" />
           <Flex justify="flex-start" direction="column" ml="4" align="center">
             <Text mt="2">Victor Hugo</Text>
-            <ModalAuthor />
+            {/* <ModalAuthor /> */}
           </Flex>
         </Flex>
         <Divider mt="6" opacity="0.2" />
@@ -304,21 +288,24 @@ export default function Modulos() {
             <Text>Comentários</Text>
           </Flex>
         </Flex>
-        <Flex w="100%" >
+        <Flex w="100%">
           <Avatar name="Victor Hugo" size="md" boxShadow="md" />
           <Textarea
             // border="0"
             opacity="0.4"
             size="sm"
-           minH={50}
+            minH={50}
             ml="4"
             placeholder="Escreva seu comentário"
             borderRadius="lg"
           />
           <Flex align="center" ml="2">
-
-        
-          <IconButton icon={<RiSendPlaneLine />}aria-label="send coment" bg="blue.500" _hover={{bg: 'transparent'}}/>
+            <IconButton
+              icon={<RiSendPlaneLine />}
+              aria-label="send coment"
+              bg="blue.500"
+              _hover={{ bg: "transparent" }}
+            />
           </Flex>
         </Flex>
         <Flex fontFamily="Poppins" mt="4" align="center">
@@ -368,11 +355,12 @@ export default function Modulos() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await getVideosFromDb();
+export const getServerSideProps = withSSRGuest(async () => {
+  const response = await apiTest.get("");
+  console.log(response);
   return {
     props: {
-      videos: data,
+      aulas: response.data,
     },
   };
-};
+});

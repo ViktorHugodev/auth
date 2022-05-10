@@ -73,8 +73,8 @@ export function Enderecos() {
               isRequired
               placeholder="Ex. 39400000 just numbers."
               border="none"
-              pattern=""
-              value={formatCep(cep)}
+          
+              value={cep}
               onChange={(e) => setCep(e.target.value)}
               type="text"
               focusBorderColor="blue.500"

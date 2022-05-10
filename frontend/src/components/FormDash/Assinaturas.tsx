@@ -44,9 +44,6 @@ export function Assinaturas() {
           <Button color="white" borderColor="red" variant="outline">
             Solicitar reembolso
           </Button>
-          <Button color="white" mt="4" borderColor="red" variant="outline">
-            Solicitar reembolso
-          </Button>
         </Flex>
       </Flex>
 
