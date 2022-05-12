@@ -1,40 +1,31 @@
 import {
   AspectRatio,
+  Avatar,
   Button,
+  Divider,
   Flex,
-  Heading,
-  Link,
+  IconButton,
+  Image,
   Stack,
   Text,
-  IconButton,
-  Avatar,
-  Divider,
-  Icon,
   Textarea,
-  Box,
-  Image,
 } from "@chakra-ui/react";
-import { GetServerSideProps } from "next";
-import videojs from "video.js";
-import "video.js/dist/video-js.css";
-
 import { useEffect, useRef, useState } from "react";
+import { RiSendPlaneLine } from "react-icons/ri";
+import "video.js/dist/video-js.css";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
-// import { ModalAuthor } from "../../components/ModalAuthor/ModalAuthor";
-import { getVideosFromDb } from "../../services/firebase/getVideosFromDb";
+import VideoJS from "../../components/VideoJs/VideoJs";
+import { apiTest } from "../../services/apiMovies";
 import {
-  IconNext,
-  IconPrevius,
-  Done,
   AddList,
   Dislike,
+  Done,
+  IconNext,
+  IconPrevius,
   Like,
   Messages,
 } from "../../styles/components/Icon";
-import { RiSendPlaneLine } from "react-icons/ri";
-import VideoJS from "../../components/VideoJs/VideoJs";
 import { withSSRGuest } from "../../utils/withSSRGuest copy";
-import { apiTest } from "../../services/apiMovies";
 
 interface AulasProps {
   url_video: string;
@@ -45,9 +36,11 @@ interface AulasProps {
   url_thumb: string;
   host: string;
   slug: string;
+  url_banner: string;
+  order: number;
 }
 interface AulaDataProps {
-  aulas: AulasProps;
+  aulas: AulasProps[];
 }
 
 export default function Modulos({ aulas }: AulaDataProps) {
@@ -56,7 +49,19 @@ export default function Modulos({ aulas }: AulaDataProps) {
   const [isYouTube, setIsYouTube] = useState(false);
   const [isVideoJs, setIsVideoJs] = useState(false);
   const [classList, setClassList] = useState([]);
-  const [currentClassIndex, setCurrentClassIndex] = useState(3);
+  const [currentClassIndex, setCurrentClassIndex] = useState(2);
+  const hasPrevious = currentClassIndex > 0;
+  const hasNext = currentClassIndex + 1 < aulas.length;
+  const videoRef = useRef(null);
+
+  function handleNextClass() {
+    if (hasNext) setCurrentClassIndex(currentClassIndex + 1);
+ 
+  }
+  function handlePreviousClass() {
+    if (hasPrevious) setCurrentClassIndex(currentClassIndex - 1);
+  }
+
   function playList(aulas: AulasProps[], index: number) {
     setClassList(aulas);
     setCurrentClassIndex(index);
@@ -65,7 +70,6 @@ export default function Modulos({ aulas }: AulaDataProps) {
 
   const playerRef = useRef(null);
 
-  useEffect(() => {}, []);
   const videoJsOptions = {
     autoplay: true,
     controls: true,
@@ -90,36 +94,46 @@ export default function Modulos({ aulas }: AulaDataProps) {
     player.on("dispose", () => {
       player.log("player will dispose");
     });
+    player.on('ended', () => {
+      setCurrentClassIndex(currentClassIndex + 1);
+    });
   };
   function RenderVideo() {
     if (aulas[currentClassIndex].host === "videojs") {
-      return (
-        <Flex           h="60vh">
-          <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
-        </Flex>
-      );
+      return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />;
     } else if (aulas[currentClassIndex].host === "youtube") {
+      
       return (
+
+        // TODO:<iframe width="560" height="315" src="https://www.youtube.com/embed/cF3jDeUTtjY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <iframe
-          title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-          src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}`}
+        ref={videoRef}
+          onEnded={handleNextClass}
+          allow="autoplay; encrypted-media; onended"
+          id="ytplayer"
+          title={aulas[currentClassIndex].title}
+          src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}?autoplay=1&controls=1&ended=99`}
           width="100%"
           height="100%"
+          picture-in-picture
+          frameBorder="0"
           allowFullScreen
         ></iframe>
       );
     } else if (aulas[currentClassIndex].host === "vimeo") {
       return (
         <iframe
+          allow="autoplay"
+          onEnded={handleNextClass}
           title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-          src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}`}
+          src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}?autoplay=1`}
           width="100%"
           height="100%"
           allowFullScreen
         ></iframe>
       );
     } else if (aulas[currentClassIndex].host === "text") {
-      return <Text>{aulas[currentClassIndex].slug}</Text>;
+      return <Text p="4">{aulas[currentClassIndex].slug}</Text>;
     }
   }
   return (
@@ -146,27 +160,14 @@ export default function Modulos({ aulas }: AulaDataProps) {
           borderRadius="lg"
           overflow="hidden"
           align="center"
-          // justify="center"
+          justify="center"
           bg="black"
         >
           <AspectRatio
             ratio={16 / 9}
             bg="black"
             w="100%"
-   
-            height="100%"
-            // w={{
-            //   sm: "426px",
-            //   md: "640px",
-            //   lg: "854px",
-            //   xl: "1280px",
-            // }}
-            // maxH={{
-            //   sm: "360px",
-            //   md: "480px",
-            //   lg: "720px",
-            //   xl: "720px",
-            // }}
+            maxW="1000px"
             boxShadow="lg"
             borderRadius="md"
           >
@@ -181,44 +182,66 @@ export default function Modulos({ aulas }: AulaDataProps) {
           bg="rgba(255, 255, 255, 0.05)"
           p="6"
           overflowY={"auto"}
-          h="100%"
+          // h="100%"
           w="40%"
+          // h="60vh"
         >
           <Flex direction="column" fontSize="sm" fontFamily="Poppins" mb="4">
             <Text>Nome do curso</Text>
-            <Text fontSize="smaller">Desirae Boator - 11 vídeos</Text>
+            <Text fontSize="smaller">
+              Desirae Boator - {aulas.length} vídeos
+            </Text>
           </Flex>
+          {aulas.map((aula, index) => {
+            return (
+              <Flex
+                direction="row"
+                my="4"
+                key={aula.id}
+                onClick={() => setCurrentClassIndex(index)}
+                cursor="pointer"
+                transition="all .3s ease"
+                _hover={{
+                  transform: "scale(1.05)",
+                }}
+              >
+                <Image
+                  // minW="144px"
+                  maxW="144px"
+                  title={aula.title}
+                  borderRadius="md"
+                  src={aula.url_banner}
+                  alt={aula.title}
+                  objectFit="contain"
+                />
 
-          <Flex direction="row" my="4">
-            <Image
-              minW="144px"
-              title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-              borderRadius="md"
-              src="https://i.ytimg.com/vi/MLDH_t3Rpms/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkugLsgmGvBNCbbHX4aBg77cQ38w"
-              alt="thumb"
-              objectFit="contain"
-            />
-
-            <Flex
-              direction="column"
-              p="2"
-              fontSize="smaller"
-              fontFamily="Poppins"
-              justify="center"
-            >
-              <Text>Aula 03</Text>
-              <Text>
-                {" "}
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aliquid velit praesentium facere autem dolorem, officia eveniet
-                odit ea necessitatibus, repellat quia explicabo nemo nihil! At
-                eveniet consequuntur dolorum dolorem perspiciatis!
-              </Text>
-            </Flex>
-          </Flex>
+                <Flex
+                  direction="column"
+                  p="2"
+                  fontSize="smaller"
+                  fontFamily="Poppins"
+                  justify="center"
+                >
+                  <Text>Aula {aula.order}</Text>
+                  <Text fontSize="smaller">{aula.title}</Text>
+                </Flex>
+              </Flex>
+            );
+          })}
         </Flex>
       </Flex>
-      <Flex direction="column" px="10" w="70%">
+      <Flex
+        direction="column"
+        px="10"
+        w="70%"
+        sx={{
+          "button:hover": {
+            borderColor: `blue.500`,
+            color: "blue.500",
+            bg: "transparent",
+          },
+        }}
+      >
         <Flex direction="column" fontFamily="Poppins">
           <Text fontSize="smaller" color="green">
             Mais curtidos
@@ -234,6 +257,8 @@ export default function Modulos({ aulas }: AulaDataProps) {
         <Flex justify="space-between" mt="4">
           <Stack direction="row" spacing={4} opacity="0.6">
             <IconButton
+              isDisabled={!hasPrevious}
+              onClick={handlePreviousClass}
               aria-label="Previus video"
               icon={<IconPrevius />}
               variant="outline"
@@ -243,6 +268,8 @@ export default function Modulos({ aulas }: AulaDataProps) {
               Concluido
             </Button>
             <IconButton
+              isDisabled={!hasNext}
+              onClick={handleNextClass}
               aria-label="next video"
               icon={<IconNext />}
               variant="outline"
