@@ -10,11 +10,15 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
+
 import { useEffect, useRef, useState } from "react";
 import { RiSendPlaneLine } from "react-icons/ri";
 import "video.js/dist/video-js.css";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
-import VideoJS from "../../components/VideoJs/VideoJs";
+import VideoJS from "../../components/PlayerVideo/VideoJs";
+import { VimeoJs } from "../../components/PlayerVideo/Vimeo";
+
+import { YouTubePlayer } from "../../components/PlayerVideo/YouTubeVideo";
 import { apiTest } from "../../services/apiMovies";
 import {
   AddList,
@@ -44,7 +48,6 @@ interface AulaDataProps {
 }
 
 export default function Modulos({ aulas }: AulaDataProps) {
-  const video = "1Yarv1dFoOU";
   const [isVimeo, setIsVimeo] = useState(false);
   const [isYouTube, setIsYouTube] = useState(false);
   const [isVideoJs, setIsVideoJs] = useState(false);
@@ -52,11 +55,9 @@ export default function Modulos({ aulas }: AulaDataProps) {
   const [currentClassIndex, setCurrentClassIndex] = useState(2);
   const hasPrevious = currentClassIndex > 0;
   const hasNext = currentClassIndex + 1 < aulas.length;
-  const videoRef = useRef(null);
 
   function handleNextClass() {
     if (hasNext) setCurrentClassIndex(currentClassIndex + 1);
- 
   }
   function handlePreviousClass() {
     if (hasPrevious) setCurrentClassIndex(currentClassIndex - 1);
@@ -66,7 +67,6 @@ export default function Modulos({ aulas }: AulaDataProps) {
     setClassList(aulas);
     setCurrentClassIndex(index);
   }
-  console.log(aulas);
 
   const playerRef = useRef(null);
 
@@ -94,7 +94,7 @@ export default function Modulos({ aulas }: AulaDataProps) {
     player.on("dispose", () => {
       player.log("player will dispose");
     });
-    player.on('ended', () => {
+    player.on("ended", () => {
       setCurrentClassIndex(currentClassIndex + 1);
     });
   };
@@ -102,35 +102,40 @@ export default function Modulos({ aulas }: AulaDataProps) {
     if (aulas[currentClassIndex].host === "videojs") {
       return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />;
     } else if (aulas[currentClassIndex].host === "youtube") {
-      
       return (
+        // <iframe
+        //   // ref={videoRef}
+        //   onEnded={handleNextClass}
+        //   allow="autoplay; encrypted-media; onended"
+        //   id="ytplayer"
+        //   title={aulas[currentClassIndex].title}
+        //   src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}?autoplay=1&controls=1&ended=99`}
+        //   width="100%"
+        //   height="100%"
 
-        // TODO:<iframe width="560" height="315" src="https://www.youtube.com/embed/cF3jDeUTtjY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe
-        ref={videoRef}
-          onEnded={handleNextClass}
-          allow="autoplay; encrypted-media; onended"
-          id="ytplayer"
-          title={aulas[currentClassIndex].title}
-          src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}?autoplay=1&controls=1&ended=99`}
-          width="100%"
-          height="100%"
-          picture-in-picture
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
+        //   frameBorder="0"
+        //   allowFullScreen
+        // ></iframe>
+        <YouTubePlayer
+          videoUrl={aulas[currentClassIndex].url_video}
+          handleNextClass={handleNextClass}
+        />
       );
     } else if (aulas[currentClassIndex].host === "vimeo") {
       return (
-        <iframe
-          allow="autoplay"
-          onEnded={handleNextClass}
-          title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-          src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}?autoplay=1`}
-          width="100%"
-          height="100%"
-          allowFullScreen
-        ></iframe>
+        // <iframe
+        //   allow="autoplay"
+        //   onEnded={handleNextClass}
+        //   title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
+        //   src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}?autoplay=1`}
+        //   width="100%"
+        //   height="100%"
+        //   allowFullScreen
+        // ></iframe>
+        <VimeoJs
+          videoUrl={aulas[currentClassIndex].url_video}
+          handleNextClass={handleNextClass}
+        />
       );
     } else if (aulas[currentClassIndex].host === "text") {
       return <Text p="4">{aulas[currentClassIndex].slug}</Text>;
@@ -384,7 +389,6 @@ export default function Modulos({ aulas }: AulaDataProps) {
 
 export const getServerSideProps = withSSRGuest(async () => {
   const response = await apiTest.get("");
-  console.log(response);
   return {
     props: {
       aulas: response.data,
