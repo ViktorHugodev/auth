@@ -7,5 +7,5 @@ export const apiMovies = axios.create({
 })
 
 export const apiTest = axios.create({
-  baseURL: `http://localhost:3333/classes`
+  baseURL: `http://localhost:3333/`
 })

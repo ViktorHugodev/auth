@@ -31,7 +31,7 @@ import {
 } from "../../styles/components/Icon";
 import { withSSRGuest } from "../../utils/withSSRGuest copy";
 
-interface AulasProps {
+export interface AulasProps {
   url_video: string;
   title: string;
   id: string;
@@ -42,32 +42,45 @@ interface AulasProps {
   slug: string;
   url_banner: string;
   order: number;
+  status: string
+  wait_days:number
+  published:string
+  blocked:string
+  release_date:string | null
+}
+
+interface UserProps {
+  class_id: string;
+  time: string;
+  created_at: string;
+  updated_at: string;
+  user_id: string;
 }
 interface AulaDataProps {
   aulas: AulasProps[];
+  users: UserProps;
 }
 
-export default function Modulos({ aulas }: AulaDataProps) {
-  const [isVimeo, setIsVimeo] = useState(false);
-  const [isYouTube, setIsYouTube] = useState(false);
-  const [isVideoJs, setIsVideoJs] = useState(false);
-  const [classList, setClassList] = useState([]);
-  const [currentClassIndex, setCurrentClassIndex] = useState(2);
+export default function Modulos({ aulas, users }: AulaDataProps) {
+  console.log("aulas:", aulas);
+  console.log("user:", users);
+
+  const [currentClassIndex, setCurrentClassIndex] = useState(3);
   const hasPrevious = currentClassIndex > 0;
   const hasNext = currentClassIndex + 1 < aulas.length;
-
+  const [showRenderVideo, setShowRenderVideo] = useState(false);
   function handleNextClass() {
     if (hasNext) setCurrentClassIndex(currentClassIndex + 1);
   }
   function handlePreviousClass() {
     if (hasPrevious) setCurrentClassIndex(currentClassIndex - 1);
   }
+  const aulaSelecionada = aulas[currentClassIndex].id.includes(users.class_id);
+  console.log("aula encontada", aulaSelecionada);
 
-  function playList(aulas: AulasProps[], index: number) {
-    setClassList(aulas);
-    setCurrentClassIndex(index);
-  }
-
+  useEffect(() => {
+    setShowRenderVideo(true);
+  }, []);
   const playerRef = useRef(null);
 
   const videoJsOptions = {
@@ -101,44 +114,30 @@ export default function Modulos({ aulas }: AulaDataProps) {
   function RenderVideo() {
     if (aulas[currentClassIndex].host === "videojs") {
       return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />;
-    } else if (aulas[currentClassIndex].host === "youtube") {
+    }
+    if (
+      aulas[currentClassIndex].host === "youtube" &&
+      showRenderVideo === true
+    ) {
       return (
-        // <iframe
-        //   // ref={videoRef}
-        //   onEnded={handleNextClass}
-        //   allow="autoplay; encrypted-media; onended"
-        //   id="ytplayer"
-        //   title={aulas[currentClassIndex].title}
-        //   src={`https://www.youtube.com/embed/${aulas[currentClassIndex]?.url_video}?autoplay=1&controls=1&ended=99`}
-        //   width="100%"
-        //   height="100%"
-
-        //   frameBorder="0"
-        //   allowFullScreen
-        // ></iframe>
         <YouTubePlayer
           videoUrl={aulas[currentClassIndex].url_video}
           handleNextClass={handleNextClass}
         />
       );
-    } else if (aulas[currentClassIndex].host === "vimeo") {
+    }
+    if (aulas[currentClassIndex].host === "vimeo" && showRenderVideo === true) {
       return (
-        // <iframe
-        //   allow="autoplay"
-        //   onEnded={handleNextClass}
-        //   title="Aula de Programação Orientada a Objetos em Kotlin do básico ao avançado"
-        //   src={`https://player.vimeo.com/video/${aulas[currentClassIndex]?.url_video}?autoplay=1`}
-        //   width="100%"
-        //   height="100%"
-        //   allowFullScreen
-        // ></iframe>
         <VimeoJs
-          videoUrl={aulas[currentClassIndex].url_video}
+          video={aulas[currentClassIndex]}
           handleNextClass={handleNextClass}
         />
       );
-    } else if (aulas[currentClassIndex].host === "text") {
+    }
+    if (aulas[currentClassIndex].host === "text") {
       return <Text p="4">{aulas[currentClassIndex].slug}</Text>;
+    } else {
+      return <h1>Loading</h1>;
     }
   }
   return (
@@ -388,9 +387,11 @@ export default function Modulos({ aulas }: AulaDataProps) {
 }
 
 export const getServerSideProps = withSSRGuest(async () => {
-  const response = await apiTest.get("");
+  const response = await apiTest.get("/classes");
+  const respondeUser = await apiTest.get("/user");
   return {
     props: {
+      users: respondeUser.data,
       aulas: response.data,
     },
   };

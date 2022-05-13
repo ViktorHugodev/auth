@@ -1,7 +1,7 @@
 {
   "classes": [
     {
-      "id": "3c09ff17-42d4-4e0c-9361-9d3e1c3be0e4",
+      "id": "3c09ff17-42d4-4e0c-9361-9d3kke1c3be0e4",
       "module_id": "bc0d2f0f-f7aa-4701-a57d-da5ca3b3dbc2",
       "title": "A arte de improvisar um título",
       "subtitle": "lorem ipsum dolor sit amet, lorem ipsum dolor sit amet",
@@ -11,7 +11,7 @@
       "published": "active",
       "release_date": null,
       "wait_days": 0,
-      "url_video": "https://themembers.s3.us-east-2.amazonaws.com/videos/TXBdqMtxSL6pIpd1nClPaR4MIrcL2atbby3c6IYC.mp4",
+      "url_video": "https://themembers.s3.us-east-2.amazonaws.com/videos/65v1SlyEqDuA0sLqlh3C6rRttjwq5oZ7yizrHngG.mp4",
       "url_video_s3": null,
       "url_image": "https://themembers.s3.us-east-2.amazonaws.com/images/banners/image_20220416625ac0833f5d4.png",
       "url_banner": "https://i.ytimg.com/vi/NhUr8cwDiiM/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDnJd8S7ae_QMHOaxBVoOoUd8vQYQ",
@@ -49,7 +49,7 @@
       "tenant_id": 2
     },
     {
-      "id": "a603848f-14b4-41c8-9419-68fda537745a708",
+      "id": "3c09ff17-42d4-4e0c-9361-9d3e1c3be0e4",
       "module_id": "bc0d2f0f-f7aa-4701-a57d-da5ca3bdbc2",
       "title": "Como criar um array dinámico estatico",
       "subtitle": "Estou escrevendo sobre como criar um array dinâmico estático",
@@ -168,6 +168,20 @@
       "updated_at": "2022-04-29T19:10:36.000000Z",
       "tenant_id": 2
     }
-    
+  ],
+  "user": [
+    {
+      "id": "7e6326b1-27eb-41ac-94aa-26caefc22e7b",
+      "tenant_id": 2,
+      "module_id": "bc0d2f0f-f7aa-4701-a57d-da5ca3b3dbc2",
+      "class_id": "3c09ff17-42d4-4e0c-9361-9d3e1c3be0e4",
+      "user_id": "c0952cd8-07fd-41ca-9eea-327ad98cc643",
+      "time": "00:00:03",
+      "rate_up": null,
+      "to_total": 3,
+      "finished": 1,
+      "created_at": "2022-05-10T14:01:42.000000Z",
+      "updated_at": "2022-05-10T14:05:51.000000Z"
+    }
   ]
 }
