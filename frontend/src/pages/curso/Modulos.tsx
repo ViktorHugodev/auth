@@ -1,6 +1,7 @@
 import {
   AspectRatio,
   Avatar,
+  Box,
   Button,
   Divider,
   Flex,
@@ -8,16 +9,15 @@ import {
   Image,
   Stack,
   Text,
-  Textarea,
+  Textarea
 } from "@chakra-ui/react";
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { FiLock } from "react-icons/fi";
 import { RiSendPlaneLine } from "react-icons/ri";
 import "video.js/dist/video-js.css";
 import { LayoutHome } from "../../components/LayoutHome/LayoutHome";
-import VideoJS from "../../components/PlayerVideo/VideoJs";
+import { VideoMp4 } from "../../components/PlayerVideo/VideoMp4";
 import { VimeoJs } from "../../components/PlayerVideo/Vimeo";
-
 import { YouTubePlayer } from "../../components/PlayerVideo/YouTubeVideo";
 import { apiTest } from "../../services/apiMovies";
 import {
@@ -27,9 +27,10 @@ import {
   IconNext,
   IconPrevius,
   Like,
-  Messages,
+  Messages
 } from "../../styles/components/Icon";
 import { withSSRGuest } from "../../utils/withSSRGuest copy";
+
 
 export interface AulasProps {
   url_video: string;
@@ -42,11 +43,11 @@ export interface AulasProps {
   slug: string;
   url_banner: string;
   order: number;
-  status: string
-  wait_days:number
-  published:string
-  blocked:string
-  release_date:string | null
+  status: string;
+  wait_days: number;
+  published: string;
+  blocked: string;
+  release_date: string | null;
 }
 
 interface UserProps {
@@ -66,54 +67,47 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
   console.log("user:", users);
 
   const [currentClassIndex, setCurrentClassIndex] = useState(3);
+  const [showRenderVideo, setShowRenderVideo] = useState(false);
+  const [isClassBlocked, setIsClassBlocked] = useState<boolean>(false);
   const hasPrevious = currentClassIndex > 0;
   const hasNext = currentClassIndex + 1 < aulas.length;
-  const [showRenderVideo, setShowRenderVideo] = useState(false);
+  //DATAS
+  const release_at = "2022-02-29T18:52:43.000000Z";
+  const releaseAt = new Date(release_at).toLocaleDateString();
+  const dataAtual = new Date().toLocaleDateString();
+  console.log("relasedAt", releaseAt);
+  console.log("dataAtual", dataAtual);
   function handleNextClass() {
     if (hasNext) setCurrentClassIndex(currentClassIndex + 1);
   }
   function handlePreviousClass() {
     if (hasPrevious) setCurrentClassIndex(currentClassIndex - 1);
   }
-  const aulaSelecionada = aulas[currentClassIndex].id.includes(users.class_id);
-  console.log("aula encontada", aulaSelecionada);
 
   useEffect(() => {
     setShowRenderVideo(true);
   }, []);
-  const playerRef = useRef(null);
-
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-
-    fluid: true,
-    sources: [
-      {
-        src: aulas[currentClassIndex].url_video,
-        type: "video/mp4",
-      },
-    ],
-  };
-  const handlePlayerReady = (player) => {
-    playerRef.current = player;
-
-    // You can handle player events here, for example:
-    player.on("waiting", () => {
-      player.log("player is waiting");
-    });
-
-    player.on("dispose", () => {
-      player.log("player will dispose");
-    });
-    player.on("ended", () => {
+  function handlePlayClass() {
+    if (
+      aulas[currentClassIndex + 1].blocked === "active" ||
+      aulas[currentClassIndex + 1].wait_days > 0 ||
+      releaseAt < dataAtual
+    ) {
+      setCurrentClassIndex(0);
+    } else if (hasNext) {
       setCurrentClassIndex(currentClassIndex + 1);
-    });
-  };
+    }
+   
+  }
+
   function RenderVideo() {
     if (aulas[currentClassIndex].host === "videojs") {
-      return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />;
+      return (
+        <VideoMp4
+          video={aulas[currentClassIndex]}
+          handlePlayClass={handlePlayClass}
+        />
+      );
     }
     if (
       aulas[currentClassIndex].host === "youtube" &&
@@ -122,7 +116,7 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
       return (
         <YouTubePlayer
           videoUrl={aulas[currentClassIndex].url_video}
-          handleNextClass={handleNextClass}
+          handlePlayClass={handlePlayClass}
         />
       );
     }
@@ -130,7 +124,7 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
       return (
         <VimeoJs
           video={aulas[currentClassIndex]}
-          handleNextClass={handleNextClass}
+          handlePlayClass={handlePlayClass}
         />
       );
     }
@@ -175,9 +169,7 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
             boxShadow="lg"
             borderRadius="md"
           >
-            {/* <Box w="100%" height="100%"> */}
             <RenderVideo />
-            {/* </Box> */}
           </AspectRatio>
         </Flex>
         <Flex
@@ -198,41 +190,151 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
           </Flex>
           {aulas.map((aula, index) => {
             return (
-              <Flex
-                direction="row"
-                my="4"
-                key={aula.id}
-                onClick={() => setCurrentClassIndex(index)}
-                cursor="pointer"
-                transition="all .3s ease"
-                _hover={{
-                  transform: "scale(1.05)",
-                }}
-              >
-                <Image
-                  // minW="144px"
-                  maxW="144px"
-                  title={aula.title}
-                  borderRadius="md"
-                  src={aula.url_banner}
-                  alt={aula.title}
-                  objectFit="contain"
-                />
+              <>
+                {aula.blocked !== "inactive" ||
+                aula.published !== "active" ||
+                aula.wait_days > 0 ? (
+                  <Flex
+                    direction="row"
+                    my="4"
+                    key={aula.id}
+                    onClick={() => {}}
+                    cursor="not-allowed"
+                    transition="all .3s ease"
+                    _hover={{
+                      transform: "scale(1.05)",
+                    }}
+                    role="group"
+                  >
+                    <Flex position="relative">
+                      <Flex
+                        p="1"
+                        align="center"
+                        position="absolute"
+                        right="0"
+                        top="0"
+                        gap={2}
+                        bg="black"
+                        borderRadius="sm"
+                        zIndex="1"
+                      >
+                        <FiLock size="24" color="gray" />
+                        <Box
+                          display="none"
+                          transition="all 3s ease"
+                          fontSize="smaller"
+                          _groupHover={{
+                            display: "flex",
+                          }}
+                        >
+                          {aula.wait_days > 0
+                            ? `${aula.wait_days} dias restantes`
+                            : releaseAt > dataAtual ?`${releaseAt} lançamento` : "Em breve"
+                            }
+                        </Box>
+                      </Flex>
+                      <Image
+                        className={
+                          aula.blocked !== "inactive" ? "blocked" : "allow"
+                        }
+                        maxW="144px"
+                        title={aula.title}
+                        borderRadius="md"
+                        src={aula.url_banner}
+                        alt={aula.title}
+                        objectFit="contain"
+                        filter="grayscale(1)"
+                      />
+                    </Flex>
 
-                <Flex
-                  direction="column"
-                  p="2"
-                  fontSize="smaller"
-                  fontFamily="Poppins"
-                  justify="center"
-                >
-                  <Text>Aula {aula.order}</Text>
-                  <Text fontSize="smaller">{aula.title}</Text>
-                </Flex>
-              </Flex>
+                    <Flex
+                      direction="column"
+                      p="2"
+                      fontSize="smaller"
+                      fontFamily="Poppins"
+                      justify="center"
+                    >
+                      <Text>Aula {aula.order}</Text>
+                      <Text fontSize="smaller">{aula.title}</Text>
+                    </Flex>
+                  </Flex>
+                ) : (
+                  <Flex
+                    direction="row"
+                    my="4"
+                    key={aula.id}
+                    onClick={() => setCurrentClassIndex(index)}
+                    cursor={"pointer"}
+                    transition="all .3s ease"
+                    _hover={{
+                      transform: "scale(1.05)",
+                    }}
+                  >
+                    <Image
+                      maxW="144px"
+                      title={aula.title}
+                      borderRadius="md"
+                      src={aula.url_banner}
+                      alt={aula.title}
+                      objectFit="contain"
+                    />
+
+                    <Flex
+                      direction="column"
+                      p="2"
+                      fontSize="smaller"
+                      fontFamily="Poppins"
+                      justify="center"
+                    >
+                      <Text>Aula {aula.order}</Text>
+                      <Text fontSize="smaller">{aula.title}</Text>
+                    </Flex>
+                  </Flex>
+                )}
+              </>
             );
           })}
         </Flex>
+      </Flex>
+      <Flex justify="space-between" mt="4" px="10">
+        <Stack direction="row" spacing={4} opacity="0.6">
+          <IconButton
+            isDisabled={!hasPrevious}
+            onClick={handlePreviousClass}
+            aria-label="Previus video"
+            icon={<IconPrevius />}
+            variant="outline"
+          />
+
+          <Button leftIcon={<Done />} variant="outline">
+            Concluido
+          </Button>
+          <IconButton
+            isDisabled={!hasNext}
+            onClick={handlePlayClass}
+            aria-label="next video"
+            icon={<IconNext />}
+            variant="outline"
+          />
+        </Stack>
+        <Stack direction="row" spacing={4} opacity="0.6">
+          <IconButton
+            aria-label="Previus video"
+            icon={<AddList />}
+            variant="outline"
+          />
+          <IconButton
+            aria-label="Previus video"
+            icon={<Like />}
+            variant="outline"
+          />
+
+          <IconButton
+            aria-label="next video"
+            icon={<Dislike />}
+            variant="outline"
+          />
+        </Stack>
       </Flex>
       <Flex
         direction="column"
@@ -246,7 +348,7 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
           },
         }}
       >
-        <Flex direction="column" fontFamily="Poppins">
+        <Flex direction="column" fontFamily="Poppins" mt="6">
           <Text fontSize="smaller" color="green">
             Mais curtidos
           </Text>
@@ -258,46 +360,7 @@ export default function Modulos({ aulas, users }: AulaDataProps) {
           />
           {/* {aulas[currentClassIndex].description} */}
         </Flex>
-        <Flex justify="space-between" mt="4">
-          <Stack direction="row" spacing={4} opacity="0.6">
-            <IconButton
-              isDisabled={!hasPrevious}
-              onClick={handlePreviousClass}
-              aria-label="Previus video"
-              icon={<IconPrevius />}
-              variant="outline"
-            />
 
-            <Button leftIcon={<Done />} variant="outline">
-              Concluido
-            </Button>
-            <IconButton
-              isDisabled={!hasNext}
-              onClick={handleNextClass}
-              aria-label="next video"
-              icon={<IconNext />}
-              variant="outline"
-            />
-          </Stack>
-          <Stack direction="row" spacing={4} opacity="0.6">
-            <IconButton
-              aria-label="Previus video"
-              icon={<AddList />}
-              variant="outline"
-            />
-            <IconButton
-              aria-label="Previus video"
-              icon={<Like />}
-              variant="outline"
-            />
-
-            <IconButton
-              aria-label="next video"
-              icon={<Dislike />}
-              variant="outline"
-            />
-          </Stack>
-        </Flex>
         <Flex
           align="center"
           fontSize="md"

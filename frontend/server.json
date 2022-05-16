@@ -130,7 +130,7 @@
       "blocked": "inactive",
       "published": "active",
       "release_date": null,
-      "wait_days": 0,
+      "wait_days": 4,
       "url_video": "631343898",
       "url_video_s3": null,
       "url_image": "https://themembers.s3.us-east-2.amazonaws.com/images/banners/image_20220429626c33fae9cce.png",
